@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c6170c55d79c15449dedba7309636cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mazeCellPrefab: {fileID: 958213226948761242, guid: 2527526bb1f4cec43a991d79fc9d4aaa, type: 3}
+  _mazeCellPrefab: {fileID: 5913989868380262306, guid: 5a852b7f42a51714bb4a8866bfd68d63, type: 3}
   _mazeWidth: 20
   _mazeDepth: 20
 --- !u!1 &1209088518
@@ -813,7 +813,7 @@ Transform:
   m_GameObject: {fileID: 1962711757}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1000, y: 1, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -17,10 +17,11 @@ public class MazeGenerator : MonoBehaviour
 
     private MazeCell[,] _mazeGrid;
 
-    void Start()
+    IEnumerator Start()
     {
         _mazeGrid = new MazeCell[_mazeWidth, _mazeDepth];
 
+        // rectangle grid is instantiate
         for (int x = 0; x < _mazeWidth; x++)
         {
             for (int z = 0; z < _mazeDepth; z++)
@@ -29,13 +30,15 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
-        GenerateMaze(null, _mazeGrid[0, 0]);
+        yield return GenerateMaze(null, _mazeGrid[0, 0]);
     }
 
-    private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
+    private IEnumerator GenerateMaze(MazeCell previousCell, MazeCell currentCell)
     {
         currentCell.Visit();
         ClearWalls(previousCell, currentCell);
+
+        yield return new WaitForSeconds(0.05f);
 
         MazeCell nextCell;
 
@@ -45,7 +48,7 @@ public class MazeGenerator : MonoBehaviour
 
             if (nextCell != null)
             {
-                GenerateMaze(currentCell, nextCell);
+                yield return GenerateMaze(currentCell, nextCell);
             }
         } while (nextCell != null);
     }
@@ -103,6 +106,8 @@ public class MazeGenerator : MonoBehaviour
         }
     }
 
+
+    // clear wall 
     private void ClearWalls(MazeCell previousCell, MazeCell currentCell)
     {
         if (previousCell == null)
