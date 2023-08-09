@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 499770301}
   - component: {fileID: 499770300}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Ramp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
