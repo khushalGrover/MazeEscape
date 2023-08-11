@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class ScaleTweeen : MonoBehaviour
 {
-    // pubic LeanTyped
-    // Start is called before the first frame update
+    
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
         

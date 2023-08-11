@@ -22,7 +22,7 @@ public class MazeGenerator : MonoBehaviour
         _mazeGrid = new MazeCell[_mazeWidth, _mazeDepth];
 
         // rectangle grid is instantiate
-        for (int x = 0; x < _mazeWidth; x++)
+        for (int x = 0; x < _mazeWidth;  x++)
         {
             for (int z = 0; z < _mazeDepth; z++)
             {
