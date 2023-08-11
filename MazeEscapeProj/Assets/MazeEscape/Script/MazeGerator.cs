@@ -10,6 +10,9 @@ public class MazeGenerator : MonoBehaviour
     private MazeCell _mazeCellPrefab;
 
     [SerializeField]
+    private int _mazeCellSize;
+
+    [SerializeField]
     private int _mazeWidth;
 
     [SerializeField]
@@ -17,28 +20,28 @@ public class MazeGenerator : MonoBehaviour
 
     private MazeCell[,] _mazeGrid;
 
-    IEnumerator Start()
+    void Start()
     {
         _mazeGrid = new MazeCell[_mazeWidth, _mazeDepth];
 
         // rectangle grid is instantiate
-        for (int x = 0; x < _mazeWidth;  x++)
+        for (int x = 0; x < _mazeWidth; x+=_mazeCellSize)
         {
-            for (int z = 0; z < _mazeDepth; z++)
+            for (int z = 0; z < _mazeDepth; z+=_mazeCellSize)
             {
                 _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, 0, z), Quaternion.identity);
             }
         }
 
-        yield return GenerateMaze(null, _mazeGrid[0, 0]);
+        GenerateMaze(null, _mazeGrid[0, 0]);
     }
 
-    private IEnumerator GenerateMaze(MazeCell previousCell, MazeCell currentCell)
+    private void GenerateMaze(MazeCell previousCell, MazeCell currentCell)
     {
         currentCell.Visit();
         ClearWalls(previousCell, currentCell);
 
-        yield return new WaitForSeconds(0.05f);
+        // yield return new WaitForSeconds(0.05f);
 
         MazeCell nextCell;
 
@@ -48,7 +51,7 @@ public class MazeGenerator : MonoBehaviour
 
             if (nextCell != null)
             {
-                yield return GenerateMaze(currentCell, nextCell);
+                GenerateMaze(currentCell, nextCell);
             }
         } while (nextCell != null);
     }
@@ -65,9 +68,9 @@ public class MazeGenerator : MonoBehaviour
         int x = (int)currentCell.transform.position.x;
         int z = (int)currentCell.transform.position.z;
 
-        if (x + 1 < _mazeWidth)
+        if (x + _mazeCellSize < _mazeWidth)
         {
-            var cellToRight = _mazeGrid[x + 1, z];
+            var cellToRight = _mazeGrid[x + _mazeCellSize, z];
 
             if (cellToRight.IsVisited == false)
             {
@@ -75,9 +78,9 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
-        if (x - 1 >= 0)
+        if (x - _mazeCellSize >= 0)
         {
-            var cellToLeft = _mazeGrid[x - 1, z];
+            var cellToLeft = _mazeGrid[x - _mazeCellSize, z];
 
             if (cellToLeft.IsVisited == false)
             {
@@ -85,9 +88,9 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
-        if (z + 1 < _mazeDepth)
+        if (z + _mazeCellSize < _mazeDepth)
         {
-            var cellToFront = _mazeGrid[x, z + 1];
+            var cellToFront = _mazeGrid[x, z + _mazeCellSize];
 
             if (cellToFront.IsVisited == false)
             {
@@ -95,9 +98,9 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
-        if (z - 1 >= 0)
+        if (z - _mazeCellSize >= 0)
         {
-            var cellToBack = _mazeGrid[x, z - 1];
+            var cellToBack = _mazeGrid[x, z - _mazeCellSize];
 
             if (cellToBack.IsVisited == false)
             {
