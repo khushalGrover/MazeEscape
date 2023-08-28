@@ -8,20 +8,17 @@ public class canvasManager : MonoBehaviour
 {
     public static canvasManager instance;
 
-    // [Header("_______Joysticks________")]
-    // [Tooltip("Joysticks")]
-    // public Joystick leftJoystick;
-    // public Joystick rightJoystick;
+    [SerializeField] private MyCenimaEffect myCenimaEffect;
 
     [Header("______Canvas_____")]
     [Tooltip("Canvas")]
-
     [SerializeField] private GameObject hudPanel;
     [SerializeField] private GameObject pasuePanel;
     [SerializeField] private GameObject creditPanel;
     [SerializeField] private GameObject optionPanel;
     [SerializeField] private GameObject gameOverPanel;
     // [SerializeField] private GameObject exitConfirmPanel;
+
 
    
 
@@ -49,6 +46,7 @@ public class canvasManager : MonoBehaviour
     public void loadMenu()
     {
         SceneManager.LoadScene(0);
+        myCenimaEffect.SwitchToCamera(0);
     }
     public void loadFirstScene()
     {
@@ -99,6 +97,7 @@ public class canvasManager : MonoBehaviour
     {
         DeActivateAllPanel();
         optionPanel.SetActive(true);
+        myCenimaEffect.SwitchToCamera(1);
         Debug.Log("Option button press");
     }
     
