@@ -43,20 +43,24 @@ public class canvasManager : MonoBehaviour
     }
    
 
-    public void loadMenu()
+    public void loadMenuScene()
     {
         SceneManager.LoadScene(0);
+
+        // switch camera to give cinematic effect
         myCenimaEffect.SwitchToCamera(0);
     }
+
     public void loadFirstScene()
     {
         SceneManager.LoadScene(1);
-        Debug.Log("trying to load");
     }
+
     public void loadSecondScene()
     {
         SceneManager.LoadScene(2);
     }
+
     public void APPQUIT()
     {
         Application.Quit();
@@ -68,17 +72,20 @@ public class canvasManager : MonoBehaviour
         DeActivateAllPanel();
         pasuePanel.SetActive(true);
     
+        myCenimaEffect.SwitchToCamera(1);
         // pause/slow game
         Time.timeScale = 0.05f;
 
     }
 
-    public void gameOver()
+
+    public void gameoverGame()
     {
 
         DeActivateAllPanel();
-
-        Time.timeScale = 0f;
+        
+        Time.timeScale = 0f;        //freez the game include the user inputs and animations!!
+        myCenimaEffect.SwitchToCamera(3);
 
     }
 
@@ -87,10 +94,19 @@ public class canvasManager : MonoBehaviour
         // Depactivate AND active Screen
         DeActivateAllPanel();
      
+        myCenimaEffect.SwitchToCamera(0);
+
         // resume game
         hudPanel.SetActive(true);
         Time.timeScale = 1;
         
+    }
+
+    public void restartGame()
+    {
+        // reload current screen and deacivate all canvas...
+        myCenimaEffect.SwitchToCamera(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void option()
@@ -98,22 +114,16 @@ public class canvasManager : MonoBehaviour
         DeActivateAllPanel();
         optionPanel.SetActive(true);
         myCenimaEffect.SwitchToCamera(1);
-        Debug.Log("Option button press");
     }
     
     public void credit()
     {
         DeActivateAllPanel();
+        myCenimaEffect.SwitchToCamera(2);
         creditPanel.SetActive(true);
-        Debug.Log("Option button press");
     }
 
-    public void restartGame()
-    {
-        // reload current screen and deacivate all canvas...
-       
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+    
 
 
 
