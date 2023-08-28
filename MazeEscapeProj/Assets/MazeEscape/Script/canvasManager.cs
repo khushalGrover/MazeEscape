@@ -68,13 +68,15 @@ public class canvasManager : MonoBehaviour
 
     public void pauseGame()
     {
+        // TODO Disable input 
+
         // activate AND deactive screen 
         DeActivateAllPanel();
         pasuePanel.SetActive(true);
     
-        myCenimaEffect.SwitchToCamera(1);
+        myCenimaEffect.SwitchToCamera(2);
         // pause/slow game
-        Time.timeScale = 0.05f;
+        // Time.timeScale = 0.05f;
 
     }
 
