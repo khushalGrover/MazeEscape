@@ -50,6 +50,10 @@ namespace StarterAssets
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool Grounded = true;
 
+        [Header("Player isMapOpen")]
+        [Tooltip("If the character is isMapOpen or not. Not part of the CharacterController built in isMapOpen check")]
+        public bool isMapOpen = false;
+
         [Tooltip("Useful for rough ground")]
         public float GroundedOffset = -0.14f;
 
@@ -74,6 +78,8 @@ namespace StarterAssets
 
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
+
+
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -164,6 +170,23 @@ namespace StarterAssets
         private void LateUpdate()
         {
             CameraRotation();
+        }
+
+        public void mapOpen()
+        {
+            if(!isMapOpen && Grounded )
+            {
+                _animator.SetBool("isMapOpen", true);
+                // Debug.Log("map is Open");
+                isMapOpen = true;
+            }
+            else
+            {
+                _animator.SetBool("isMapOpen", false);
+                // Debug.LogError("map is Open");
+                isMapOpen = false;
+            }
+
         }
 
         private void AssignAnimationIDs()

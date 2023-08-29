@@ -125,7 +125,10 @@ public class canvasManager : MonoBehaviour
         creditPanel.SetActive(true);
     }
 
-    
+    public void cameraToWatch()
+    {
+        myCenimaEffect.SwitchToCamera(3);
+    }
 
 
 
