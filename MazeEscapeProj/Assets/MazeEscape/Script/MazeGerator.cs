@@ -17,21 +17,40 @@ public class MazeGenerator : MonoBehaviour
 
     [SerializeField]
     private int _mazeDepth;
+    
+    [SerializeField]
+    private Vector3 offSet;
+
+    [SerializeField]
+    private GameObject borderCell, borderCell2;
 
     private MazeCell[,] _mazeGrid;
 
     void Start()
     {
         _mazeGrid = new MazeCell[_mazeWidth, _mazeDepth];
-
-        // rectangle grid is instantiate
+        
+        // rectangle grid is instantiate without bottom and right wall
         for (int x = 0; x < _mazeWidth; x+=_mazeCellSize)
         {
             for (int z = 0; z < _mazeDepth; z+=_mazeCellSize)
             {
-                _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, 0, z), Quaternion.identity);
+                _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, 0, z * offSet.z)  , Quaternion.identity);
             }
         }
+        // both border wall instantiate
+        for(int r=0; r<_mazeWidth; r+=_mazeCellSize)
+        {
+            Instantiate(borderCell, new Vector3(r, 0, 0)  , Quaternion.Euler(0,180,0));
+        } 
+        for(int c=0; c<_mazeDepth; c+=_mazeCellSize)
+        {
+            Instantiate(borderCell2, new Vector3(_mazeWidth, 0, c)  , Quaternion.Euler(0,-90,0));
+
+        }
+
+
+
 
         GenerateMaze(null, _mazeGrid[0, 0]);
     }
@@ -65,8 +84,8 @@ public class MazeGenerator : MonoBehaviour
 
     private IEnumerable<MazeCell> GetUnvisitedCells(MazeCell currentCell)
     {
-        int x = (int)currentCell.transform.position.x;
-        int z = (int)currentCell.transform.position.z;
+        int x = (int)currentCell.transform.position.x ;
+        int z = (int)currentCell.transform.position.z ;
 
         if (x + _mazeCellSize < _mazeWidth)
         {
@@ -120,7 +139,7 @@ public class MazeGenerator : MonoBehaviour
 
         if (previousCell.transform.position.x < currentCell.transform.position.x)
         {
-            previousCell.ClearRightWall();
+            // previousCell.ClearRightWall();
             currentCell.ClearLeftWall();
             return;
         }
@@ -128,20 +147,20 @@ public class MazeGenerator : MonoBehaviour
         if (previousCell.transform.position.x > currentCell.transform.position.x)
         {
             previousCell.ClearLeftWall();
-            currentCell.ClearRightWall();
+            // currentCell.ClearRightWall();
             return;
         }
 
         if (previousCell.transform.position.z < currentCell.transform.position.z)
         {
             previousCell.ClearFrontWall();
-            currentCell.ClearBackWall();
+            // currentCell.ClearBackWall();
             return;
         }
 
         if (previousCell.transform.position.z > currentCell.transform.position.z)
         {
-            previousCell.ClearBackWall();
+            // previousCell.ClearBackWall();
             currentCell.ClearFrontWall();
             return;
         }
