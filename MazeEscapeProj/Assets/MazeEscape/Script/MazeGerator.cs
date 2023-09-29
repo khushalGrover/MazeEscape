@@ -36,6 +36,7 @@ public class MazeGenerator : MonoBehaviour
             for (int z = 0; z < _mazeDepth; z+=_mazeCellSize)
             {
                 _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, 0, z * offSet.z)  , Quaternion.identity);
+                Debug.Log(_mazeGrid[x, z].transform.position);
             }
         }
         // both border wall instantiate
