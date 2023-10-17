@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/MazeEscape/Scenes/Level_Scene2.0.unity
+    guid: 651a6d8d6b8677d4e99d881a0f3a13f5
+  - enabled: 1
     path: Assets/MazeEscape/Scenes/Main_Menu.unity
     guid: 39e1fb04def9f4e43a012f14953b5eb2
   - enabled: 1

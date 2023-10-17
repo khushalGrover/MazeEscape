@@ -8,7 +8,7 @@ public class canvasManager : MonoBehaviour
 {
     public static canvasManager instance;
 
-    [SerializeField] private MyCenimaEffect myCenimaEffect;
+    // [SerializeField] private MyCenimaEffect myCenimaEffect;
 
     [Header("______Canvas_____")]
     [Tooltip("Canvas")]
@@ -48,7 +48,7 @@ public class canvasManager : MonoBehaviour
         SceneManager.LoadScene(0);
 
         // switch camera to give cinematic effect
-        myCenimaEffect.SwitchToCamera(0);
+        // myCenimaEffect.SwitchToCamera(0);
     }
 
     public void loadFirstScene()
@@ -74,7 +74,7 @@ public class canvasManager : MonoBehaviour
         DeActivateAllPanel();
         pasuePanel.SetActive(true);
     
-        myCenimaEffect.SwitchToCamera(2);
+        // myCenimaEffect.SwitchToCamera(2);
         // pause/slow game
         // Time.timeScale = 0.05f;
 
@@ -87,7 +87,7 @@ public class canvasManager : MonoBehaviour
         DeActivateAllPanel();
         
         Time.timeScale = 0f;        //freez the game include the user inputs and animations!!
-        myCenimaEffect.SwitchToCamera(3);
+        // myCenimaEffect.SwitchToCamera(3);
 
     }
 
@@ -96,7 +96,7 @@ public class canvasManager : MonoBehaviour
         // Depactivate AND active Screen
         DeActivateAllPanel();
      
-        myCenimaEffect.SwitchToCamera(0);
+        // myCenimaEffect.SwitchToCamera(0);
 
         // resume game
         hudPanel.SetActive(true);
@@ -107,7 +107,7 @@ public class canvasManager : MonoBehaviour
     public void restartGame()
     {
         // reload current screen and deacivate all canvas...
-        myCenimaEffect.SwitchToCamera(0);
+        // myCenimaEffect.SwitchToCamera(0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -115,19 +115,19 @@ public class canvasManager : MonoBehaviour
     {
         DeActivateAllPanel();
         optionPanel.SetActive(true);
-        myCenimaEffect.SwitchToCamera(1);
+        // myCenimaEffect.SwitchToCamera(1);
     }
     
     public void credit()
     {
         DeActivateAllPanel();
-        myCenimaEffect.SwitchToCamera(2);
+        // myCenimaEffect.SwitchToCamera(2);
         creditPanel.SetActive(true);
     }
 
     public void cameraToWatch()
     {
-        myCenimaEffect.SwitchToCamera(3);
+        // myCenimaEffect.SwitchToCamera(3);
     }
 
 
