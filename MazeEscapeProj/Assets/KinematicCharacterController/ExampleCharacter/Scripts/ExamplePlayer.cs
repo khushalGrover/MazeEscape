@@ -85,18 +85,41 @@ namespace KinematicCharacterController.Examples
             PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
 
             // Build the CharacterInputs struct
-            characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
-            characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
+            // characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
+            // characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
+            // characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
+            // characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
+            // characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.C);
+            // characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.C);
+
             characterInputs.MoveAxisForward = joystickMovement.Vertical;
             characterInputs.MoveAxisRight = joystickMovement.Horizontal;
+            // characterInputs.JumpDown = jumping();
+            // characterInputs.CrouchDown = CrouchingDown();
+            // characterInputs.CrouchUp = CrouchingUp();
 
-            characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
-            characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
-            characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.C);
-            characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.C);
 
             // Apply inputs to character
             Character.SetInputs(ref characterInputs);
+        }
+
+        public bool jumping()
+        {
+            return true;
+        }
+
+        public bool CrouchingDown()
+        {
+            return false;
+        }   
+        public bool CrouchingUp()
+        {
+            return true;
+        }
+
+        public void changeCamera()
+        {
+            CharacterCamera.TargetDistance = (CharacterCamera.TargetDistance == 0f) ? CharacterCamera.DefaultDistance : 0f;
         }
     }
 }
