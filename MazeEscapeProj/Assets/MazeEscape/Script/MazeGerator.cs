@@ -35,18 +35,18 @@ public class MazeGenerator : MonoBehaviour
         {
             for (int z = 0; z < _mazeDepth; z+=_mazeCellSize)
             {
-                _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, 15, z * offSet.z)  , Quaternion.identity);
+                _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, 15, z)  , Quaternion.identity);
                 Debug.Log(_mazeGrid[x, z].transform.position);
             }
         }
         // both border wall instantiate
-        for(int r=0; r<_mazeWidth; r+=_mazeCellSize)
+        for(int r=15; r<_mazeWidth; r+=_mazeCellSize)
         {
-            Instantiate(borderCell, new Vector3(r, 0, 0)  , Quaternion.Euler(0,180,0));
+            Instantiate(borderCell, new Vector3(r, 15, -30)  , Quaternion.Euler(0,0,0));
         } 
         for(int c=0; c<_mazeDepth; c+=_mazeCellSize)
         {
-            Instantiate(borderCell2, new Vector3(_mazeWidth, 0, c)  , Quaternion.Euler(0,-90,0));
+            Instantiate(borderCell2, new Vector3(_mazeWidth, 15, c)  , Quaternion.Euler(0,0,0));
 
         }
 

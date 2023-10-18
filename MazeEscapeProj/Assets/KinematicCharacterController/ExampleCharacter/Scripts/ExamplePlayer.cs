@@ -10,19 +10,17 @@ namespace KinematicCharacterController.Examples
     {
         public ExampleCharacterController Character;
         public ExampleCharacterCamera CharacterCamera;
+        public hudUiManager hudUiManag;
 
-
-        [SerializeField] private Joystick joystickRotation;
-        [SerializeField] private Joystick joystickMovement;
-        // private const string MouseXInput = "Mouse X";
-        // private const string MouseYInput = "Mouse Y";
+        private const string MouseXInput = "Mouse X";
+        private const string MouseYInput = "Mouse Y";
         private const string MouseScrollInput = "Mouse ScrollWheel";
         private const string HorizontalInput = "Horizontal";
         private const string VerticalInput = "Vertical";
 
         private void Start()
         {
-            // Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.Locked;
 
             // Tell camera to follow transform
             CharacterCamera.SetFollowTransform(Character.CameraFollowPoint);
@@ -36,7 +34,7 @@ namespace KinematicCharacterController.Examples
         {
             if (Input.GetMouseButtonDown(0))
             {
-                // Cursor.lockState = CursorLockMode.Locked;
+                Cursor.lockState = CursorLockMode.Locked;
             }
             
             HandleCharacterInput();
@@ -57,13 +55,10 @@ namespace KinematicCharacterController.Examples
         private void HandleCameraInput()
         {
             // Create the look input vector for the camera
-            //float mouseLookAxisUp = Input.GetAxisRaw(MouseYInput);
-            //float mouseLookAxisRight = Input.GetAxisRaw(MouseXInput);
-            // Vector3 lookInputVector = new Vector3(mouseLookAxisRight, mouseLookAxisUp, 0f);
-
-            // using value from vertual joystick
-            Vector3 lookInputVector = new Vector3 (joystickRotation.Horizontal, joystickRotation.Vertical, 0f);
-            
+            float mouseLookAxisUp = Input.GetAxisRaw(MouseYInput);
+            float mouseLookAxisRight = Input.GetAxisRaw(MouseXInput);
+            Vector3 lookInputVector = new Vector3(mouseLookAxisRight, mouseLookAxisUp, 0f);
+       
             // Input for zooming the camera (disabled in WebGL because it can cause problems)
             float scrollInput = -Input.GetAxis(MouseScrollInput);
 #if UNITY_WEBGL
@@ -85,41 +80,27 @@ namespace KinematicCharacterController.Examples
             PlayerCharacterInputs characterInputs = new PlayerCharacterInputs();
 
             // Build the CharacterInputs struct
-            // characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
-            // characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
-            // characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
-            // characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
-            // characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.C);
-            // characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.C);
-
-            characterInputs.MoveAxisForward = joystickMovement.Vertical;
-            characterInputs.MoveAxisRight = joystickMovement.Horizontal;
-            // characterInputs.JumpDown = jumping();
-            // characterInputs.CrouchDown = CrouchingDown();
-            // characterInputs.CrouchUp = CrouchingUp();
-
+            characterInputs.MoveAxisForward = Input.GetAxisRaw(VerticalInput);
+            characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
+            characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
+            characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
+            characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.C);
+            characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.C);
+            // hudUiManag.openMajorMap(Input.GetKeyDown(KeyCode.M));
+            // hudUiManag.closeMajorMap(Input.GetKeyUp(KeyCode.M));
+            if(Input.GetKeyDown(KeyCode.M))
+            {
+                Debug.Log("button press");
+                hudUiManag.openMajorMap(true);
+            }
+            else if(Input.GetKeyUp(KeyCode.M))
+            {
+                hudUiManag.openMajorMap(false);
+            }
 
             // Apply inputs to character
             Character.SetInputs(ref characterInputs);
         }
 
-        public bool jumping()
-        {
-            return true;
-        }
-
-        public bool CrouchingDown()
-        {
-            return false;
-        }   
-        public bool CrouchingUp()
-        {
-            return true;
-        }
-
-        public void changeCamera()
-        {
-            CharacterCamera.TargetDistance = (CharacterCamera.TargetDistance == 0f) ? CharacterCamera.DefaultDistance : 0f;
-        }
     }
 }

@@ -20,7 +20,17 @@ public class canvasManager : MonoBehaviour
     // [SerializeField] private GameObject exitConfirmPanel;
 
 
-   
+    private void LateUpdate()
+    {
+        
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            pasuePanel.SetActive(!pasuePanel.activeInHierarchy);
+            Time.timeScale = pasuePanel.activeInHierarchy ? 0f : 1f;
+        }
+    }
+
+
 
     private void Start()
     {
