@@ -7,8 +7,14 @@ using UnityEngine;
 public class MazeGenerator : MonoBehaviour
 {
     [SerializeField]
+    private GameObject cellParent, borderCellParent;
+
+    [SerializeField]
     private MazeCell _mazeCellPrefab;
 
+    [SerializeField]
+    private GameObject borderCellPrefab, borderCell2Prefab;
+    
     [SerializeField]
     private int _mazeCellSize;
 
@@ -21,14 +27,15 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField]
     private Vector3 offSet;
 
-    [SerializeField]
-    private GameObject borderCell, borderCell2;
 
     private MazeCell[,] _mazeGrid;
+
+   
 
     void Start()
     {
         _mazeGrid = new MazeCell[_mazeWidth, _mazeDepth];
+        
         
         // rectangle grid is instantiate without bottom and right wall
         for (int x = 0; x < _mazeWidth; x+= _mazeCellSize)
@@ -36,17 +43,20 @@ public class MazeGenerator : MonoBehaviour
             for (int z = 0; z < _mazeDepth; z+=_mazeCellSize)
             {
                 _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, _mazeCellSize/2, z)  , Quaternion.identity);
+                _mazeGrid[x,z].transform.parent = cellParent.transform;
             }
         }
+
         // both border wall instantiate
-        for(int r=_mazeCellSize/2; r<_mazeWidth; r+=_mazeCellSize)
+        for(int r=_mazeCellSize; r<_mazeWidth; r+=_mazeCellSize)
         {
-            Instantiate(borderCell, new Vector3(r, _mazeCellSize/2, -_mazeCellSize)  , Quaternion.Euler(0,0,0));
+            var b = Instantiate(borderCellPrefab, new Vector3(r, _mazeCellSize/2, -_mazeCellSize)  , Quaternion.Euler(0,0,0));
+            b.transform.parent = borderCellParent.transform;
         } 
         for(int c=0; c<_mazeDepth; c+=_mazeCellSize)
         {
-            Instantiate(borderCell2, new Vector3(_mazeWidth, _mazeCellSize/2, c)  , Quaternion.Euler(0,0,0));
-
+            var b = Instantiate(borderCell2Prefab, new Vector3(_mazeWidth, _mazeCellSize/2, c)  , Quaternion.Euler(0,0,0));
+            b.transform.parent = borderCellParent.transform;
         }
 
         GenerateMaze(null, _mazeGrid[0, 0]);
@@ -75,7 +85,7 @@ public class MazeGenerator : MonoBehaviour
     private MazeCell GetNextUnvisitedCell(MazeCell currentCell)
     {
         var unvisitedCells = GetUnvisitedCells(currentCell);
-        Debug.Log(unvisitedCells);
+        // Debug.Log(unvisitedCells);
         return unvisitedCells.OrderBy(_ => Random.Range(1, 10)).FirstOrDefault();
     }
 
@@ -129,7 +139,7 @@ public class MazeGenerator : MonoBehaviour
     // clear wall 
     private void ClearWalls(MazeCell previousCell, MazeCell currentCell)
     {
-        Debug.Log("trying to clear wall at " + currentCell.transform.position.x + " + " + currentCell.transform.position.z);
+        // Debug.Log("trying to clear wall at " + currentCell.transform.position.x + " + " + currentCell.transform.position.z);
         if (previousCell == null)
         {
             return;
