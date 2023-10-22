@@ -10,7 +10,7 @@ namespace KinematicCharacterController.Examples
     {
         public ExampleCharacterController Character;
         public ExampleCharacterCamera CharacterCamera;
-        public hudUiManager hudUiManag;
+        public CameraManager cameraManager;
 
         private const string MouseXInput = "Mouse X";
         private const string MouseYInput = "Mouse Y";
@@ -48,7 +48,6 @@ namespace KinematicCharacterController.Examples
                 CharacterCamera.PlanarDirection = Character.Motor.AttachedRigidbody.GetComponent<PhysicsMover>().RotationDeltaFromInterpolation * CharacterCamera.PlanarDirection;
                 CharacterCamera.PlanarDirection = Vector3.ProjectOnPlane(CharacterCamera.PlanarDirection, Character.Motor.CharacterUp).normalized;
             }
-
             HandleCameraInput();
         }
 
@@ -90,12 +89,11 @@ namespace KinematicCharacterController.Examples
             // hudUiManag.closeMajorMap(Input.GetKeyUp(KeyCode.M));
             if(Input.GetKeyDown(KeyCode.M))
             {
-                Debug.Log("button press");
-                hudUiManag.openMajorMap(true);
+                cameraManager.toggleMap(true);
             }
             else if(Input.GetKeyUp(KeyCode.M))
             {
-                hudUiManag.openMajorMap(false);
+                cameraManager.toggleMap(false);
             }
 
             // Apply inputs to character
