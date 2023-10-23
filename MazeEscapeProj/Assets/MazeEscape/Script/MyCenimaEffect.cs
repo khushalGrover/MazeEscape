@@ -8,10 +8,12 @@ public class MyCenimaEffect : MonoBehaviour
 
     public CinemachineVirtualCamera[] vCam;
     public int targetIndex=0;
+    public int savedDefaultCameraIndex=0;
 
-    public void SwitchToMainMenu()
+    private void SwitchToMainMenu()
     {
-        vCam[0].enabled = true;
+        // vCam[0].enabled = true;
+        vCam[savedDefaultCameraIndex].enabled = true;
     }
 
     public void SwitchToCamera(int targetIndex)
