@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
-// using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class CanvasManager : MonoBehaviour
     [Header("______Canvas_____")]
     [Tooltip("Canvas")]
     [SerializeField] private GameObject hudPanel;
+    [SerializeField] private GameObject mainMenuHudPanel;
     [SerializeField] private GameObject pasuePanel;
     [SerializeField] private GameObject creditPanel;
     [SerializeField] private GameObject optionPanel;
@@ -22,16 +24,21 @@ public class CanvasManager : MonoBehaviour
     // [SerializeField] private GameObject exitConfirmPanel;
 
 
-    private void LateUpdate()
+    private void Awake()
     {
-        
-        if(Input.GetKeyUp(KeyCode.Escape))
-        {
-            pasuePanel.SetActive(!pasuePanel.activeInHierarchy);
-            Time.timeScale = pasuePanel.activeInHierarchy ? 0f : 1f;
-        }
+        // GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
+        GameManager.OnGameStateChanged += resumeGame;
+
+        Debug.Log(SceneManager.GetActiveScene().buildIndex);
     }
 
+    private void OnDestroy()
+    {
+        GameManager.OnGameStateChanged -= resumeGame;
+
+    }
+
+  
 
 
     private void Start()
@@ -41,12 +48,25 @@ public class CanvasManager : MonoBehaviour
         //     DeActivateAllPanel();
         // }
 
-        resumeGame();
     }
 
-   void DeActivateAllPanel()
+    private void LateUpdate()
+    {
+
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            pasuePanel.SetActive(!pasuePanel.activeInHierarchy);
+            Time.timeScale = pasuePanel.activeInHierarchy ? 0f : 1f;
+        }
+    }
+
+
+
+
+    void DeActivateAllPanel()
     {
         hudPanel.SetActive(false);
+        mainMenuHudPanel.SetActive(false);
         pasuePanel.SetActive(false);
         creditPanel.SetActive(false);
         optionPanel.SetActive(false);
@@ -59,7 +79,8 @@ public class CanvasManager : MonoBehaviour
     {
         // SceneManager.LoadScene(0);
         GameManager.instance.loadScene(0);
-        
+
+
         // switch camera to give cinematic effect
         // myCenimaEffect.SwitchToCamera(0);
 
@@ -69,6 +90,8 @@ public class CanvasManager : MonoBehaviour
     {
         // SceneManager.LoadScene(1);
         GameManager.instance.loadScene(1);
+        GameManager.instance.UpdateGameState(GameState.Playing);
+        GameManager.OnGameStateChanged += resumeGame;
 
     }
 
@@ -76,6 +99,8 @@ public class CanvasManager : MonoBehaviour
     {
         //SceneManager.LoadScene(2);
         GameManager.instance.loadScene(2);
+        GameManager.instance.UpdateGameState(GameState.Playing);
+        GameManager.OnGameStateChanged += resumeGame;
 
 
     }
@@ -110,15 +135,20 @@ public class CanvasManager : MonoBehaviour
 
     }
 
-    public void resumeGame()
+    public void resumeGame(GameState state)
     {
         // Depactivate AND active Screen
         DeActivateAllPanel();
-     
+
         // myCenimaEffect.SwitchToCamera(0);
 
-        // resume game
+        
+
+        mainMenuHudPanel.SetActive(state == GameState.MainMenu);
         hudPanel.SetActive(true);
+        Debug.Log(state.ToString());
+
+        // resume game
         Time.timeScale = 1;
         
     }
