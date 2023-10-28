@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -17,24 +18,48 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject pasuePanel;
     [SerializeField] private GameObject creditPanel;
     [SerializeField] private GameObject optionPanel;
+    [SerializeField] private GameObject exitConfirmPanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private RectTransform mapRectTransform;
+    [SerializeField] private MyCenimaEffect myCenimaEffect;
 
-  
+    private void Awake()
+    {
+        myCenimaEffect = gameObject.GetComponent<MyCenimaEffect>();
+    }
+
     private void LateUpdate()
     {
 
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (!Input.GetKeyUp(KeyCode.Escape))
+        {
+            return;
+        }
+
+        if(SceneManager.GetActiveScene().buildIndex != 0 )
         {
             if (!pasuePanel.activeInHierarchy)
             {
                 pauseGame();
-                
+
             }
-            
+            else
+            {
+                resumeGame();
+            }
+        }
+        else
+        {
+            if(!mainMenuHudPanel.activeInHierarchy)
+            {
+                resumeMainMenu();
+            }
+            else
+            {
+                ExitConfirmPanel();
+            }
         }
         
-        Debug.Log(Cursor.lockState + "  " + Cursor.visible.ToString());
 
     }
 
@@ -62,7 +87,7 @@ public class CanvasManager : MonoBehaviour
         GameManager.instance.loadScene(0);
 
         // switch camera to give cinematic effect
-        // myCenimaEffect.SwitchToCamera(0);
+        myCenimaEffect.SwitchToCamera(0);
     }
 
     public void loadFirstScene()
@@ -93,10 +118,16 @@ public class CanvasManager : MonoBehaviour
         pasuePanel.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        // myCenimaEffect.SwitchToCamera(2);
+        myCenimaEffect.SwitchToCamera(2);
         // pause/slow game
         // Time.timeScale = 0.05f;
 
+    }
+
+    public void ExitConfirmPanel()
+    {
+        DeActivateAllPanel();
+        exitConfirmPanel.SetActive(true);
     }
 
 
@@ -106,7 +137,7 @@ public class CanvasManager : MonoBehaviour
         DeActivateAllPanel();
 
         Time.timeScale = 0f;        //freez the game include the user inputs and animations!!
-        // myCenimaEffect.SwitchToCamera(3);
+        myCenimaEffect.SwitchToCamera(3);
 
     }
 
@@ -115,7 +146,7 @@ public class CanvasManager : MonoBehaviour
         // Depactivate AND active Screen
         DeActivateAllPanel();
 
-        // myCenimaEffect.SwitchToCamera(0);
+        myCenimaEffect.SwitchToCamera(0);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         // resume game
@@ -137,7 +168,7 @@ public class CanvasManager : MonoBehaviour
     public void restartGame()
     {
         // reload current screen and deacivate all canvas...
-        // myCenimaEffect.SwitchToCamera(0);
+        myCenimaEffect.SwitchToCamera(0);
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         GameManager.instance.RestartScene();
     }
@@ -146,19 +177,19 @@ public class CanvasManager : MonoBehaviour
     {
         DeActivateAllPanel();
         optionPanel.SetActive(true);
-        // myCenimaEffect.SwitchToCamera(1);
+        myCenimaEffect.SwitchToCamera(2);
     }
 
     public void credit()
     {
         DeActivateAllPanel();
-        // myCenimaEffect.SwitchToCamera(2);
+        myCenimaEffect.SwitchToCamera(2);
         creditPanel.SetActive(true);
     }
 
     public void cameraToWatch()
     {
-        // myCenimaEffect.SwitchToCamera(3);
+        myCenimaEffect.SwitchToCamera(3);
     }
     public void toggleMap(bool isMapOpen)
     {

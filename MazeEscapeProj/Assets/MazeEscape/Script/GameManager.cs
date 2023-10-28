@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     // reference variables
     private Loader loader;
     private CanvasManager canvasManager;
-    // private MyCenimaEffect myCenimaEffect;
 
 
     private void Awake()
@@ -32,7 +31,7 @@ public class GameManager : MonoBehaviour
         // intialiize
         loader = gameObject.GetComponent<Loader>();
         canvasManager = gameObject.GetComponent <CanvasManager>();
-        //myCenimaEffect = gameObject.GetComponent<MyCenimaEffect>();
+        
         
         
         // setting default state
@@ -53,7 +52,6 @@ public class GameManager : MonoBehaviour
 
             case GameState.MainMenu:
                 // switch camera to give cinematic effect
-                // myCenimaEffect.SwitchToCamera(0);
                 break;
 
             case GameState.Playing:
