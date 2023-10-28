@@ -1,4 +1,3 @@
-using OpenCover.Framework.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +14,8 @@ public class GameManager : MonoBehaviour
     // reference variables
     private Loader loader;
     private CanvasManager canvasManager;
+    // private MyCenimaEffect myCenimaEffect;
+
 
     private void Awake()
     {
@@ -27,12 +28,15 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+
         // intialiize
         loader = gameObject.GetComponent<Loader>();
         canvasManager = gameObject.GetComponent <CanvasManager>();
-
+        //myCenimaEffect = gameObject.GetComponent<MyCenimaEffect>();
+        
+        
         // setting default state
-        UpdateGameState(GameState.MainMenu);
+        // UpdateGameState(GameState.MainMenu);
 
     }
 
@@ -42,15 +46,27 @@ public class GameManager : MonoBehaviour
 
         switch(newState)
         {
+
+            case GameState.Default:
+                Debug.Log("Default");
+                break;
+
             case GameState.MainMenu:
+                // switch camera to give cinematic effect
+                // myCenimaEffect.SwitchToCamera(0);
                 break;
 
             case GameState.Playing:
+                HandleToggleMap(false);
                 break;
             
             case GameState.Pause: 
                 break;
                 
+            case GameState.MapOpen:
+                HandleToggleMap(true);
+                break;
+
             case GameState.Victory: 
                 break; 
             
@@ -75,12 +91,17 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void RestartScene()
+    {
+        loader.RestartScene();
+    }
+
     public void LoaderCallBack()
     {
         loader.LoaderCallback();
     }
 
-    public void ToggleMap(bool mapOpen)
+    public void HandleToggleMap(bool mapOpen)
     {
         canvasManager.toggleMap(mapOpen);
 
@@ -90,9 +111,12 @@ public class GameManager : MonoBehaviour
 }
 public enum GameState
 {
+    Default,
     MainMenu,
     Playing,
     Pause,
+    MapOpen,
+    MapClose,
     Victory,
     GameOver
 }

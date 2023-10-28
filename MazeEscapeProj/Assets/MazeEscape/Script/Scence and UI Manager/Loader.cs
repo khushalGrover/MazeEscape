@@ -15,6 +15,23 @@ public class Loader : MonoBehaviour
         Loading,
     }
 
+    private void Awake()
+    {
+        if(SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
+
+
+
     public void Load(int sceneIndex)
     {
         // Set the loader callback action to load the target scene
@@ -26,25 +43,24 @@ public class Loader : MonoBehaviour
         LoadLoading();
     }
 
-    public void LoadMainMenu()
-    {
-        SceneManager.LoadScene(SceneName.Main_Menu.ToString());
-    }
-
+   
     public void LoadLoading()
     {
         SceneManager.LoadScene(SceneName.Loading.ToString());
     }
 
-    public void LoadNextScene()
-    {
-        int nextIndex = (SceneManager.GetActiveScene().buildIndex);
-        SceneManager.LoadScene(++nextIndex);
-
-    }
+  
     public void RestartScene()
     {
+        // Set the loader callback action to load the target scene
+        /*onLoaderCallback = () => {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        };*/
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        // Load the Loading Scene
+        // LoadLoading();
     }
 
 

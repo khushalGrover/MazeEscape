@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
-    // public static canvasManager instance;
+    public static CanvasManager instance;
 
     // [SerializeField] private MyCenimaEffect myCenimaEffect;
 
@@ -21,47 +19,30 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject optionPanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private RectTransform mapRectTransform;
-    // [SerializeField] private GameObject exitConfirmPanel;
-
-
-    private void Awake()
-    {
-        // GameManager.OnGameStateChanged += GameManagerOnGameStateChanged;
-        GameManager.OnGameStateChanged += resumeGame;
-
-        Debug.Log(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    private void OnDestroy()
-    {
-        GameManager.OnGameStateChanged -= resumeGame;
-
-    }
 
   
-
-
-    private void Start()
-    {
-        // if(SceneManager.GetActiveScene().buildIndex == 1)
-        // {
-        //     DeActivateAllPanel();
-        // }
-
-    }
-
     private void LateUpdate()
     {
 
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            pasuePanel.SetActive(!pasuePanel.activeInHierarchy);
-            Time.timeScale = pasuePanel.activeInHierarchy ? 0f : 1f;
+            if (!pasuePanel.activeInHierarchy)
+            {
+                pauseGame();
+                
+            }
+            
         }
+        
+        Debug.Log(Cursor.lockState + "  " + Cursor.visible.ToString());
+
     }
 
 
 
+    private void Start()
+    {
+    }
 
     void DeActivateAllPanel()
     {
@@ -73,35 +54,28 @@ public class CanvasManager : MonoBehaviour
         gameOverPanel.SetActive(false);
 
     }
-   
+
 
     public void loadMenuScene()
     {
         // SceneManager.LoadScene(0);
         GameManager.instance.loadScene(0);
 
-
         // switch camera to give cinematic effect
         // myCenimaEffect.SwitchToCamera(0);
-
     }
 
     public void loadFirstScene()
     {
         // SceneManager.LoadScene(1);
         GameManager.instance.loadScene(1);
-        GameManager.instance.UpdateGameState(GameState.Playing);
-        GameManager.OnGameStateChanged += resumeGame;
 
     }
 
     public void loadSecondScene()
     {
-        //SceneManager.LoadScene(2);
+        // SceneManager.LoadScene(2);
         GameManager.instance.loadScene(2);
-        GameManager.instance.UpdateGameState(GameState.Playing);
-        GameManager.OnGameStateChanged += resumeGame;
-
 
     }
 
@@ -117,7 +91,8 @@ public class CanvasManager : MonoBehaviour
         // activate AND deactive screen 
         DeActivateAllPanel();
         pasuePanel.SetActive(true);
-    
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         // myCenimaEffect.SwitchToCamera(2);
         // pause/slow game
         // Time.timeScale = 0.05f;
@@ -129,35 +104,42 @@ public class CanvasManager : MonoBehaviour
     {
 
         DeActivateAllPanel();
-        
+
         Time.timeScale = 0f;        //freez the game include the user inputs and animations!!
         // myCenimaEffect.SwitchToCamera(3);
 
     }
 
-    public void resumeGame(GameState state)
+    public void resumeGame()
     {
         // Depactivate AND active Screen
         DeActivateAllPanel();
 
         // myCenimaEffect.SwitchToCamera(0);
-
-        
-
-        mainMenuHudPanel.SetActive(state == GameState.MainMenu);
-        hudPanel.SetActive(true);
-        Debug.Log(state.ToString());
-
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         // resume game
+        hudPanel.SetActive(true);
         Time.timeScale = 1;
-        
+
+    }
+
+    public void resumeMainMenu()
+    {
+        // Depactivate AND active Screen
+        DeActivateAllPanel();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        mainMenuHudPanel.SetActive(true);
+
     }
 
     public void restartGame()
     {
         // reload current screen and deacivate all canvas...
         // myCenimaEffect.SwitchToCamera(0);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        GameManager.instance.RestartScene();
     }
 
     public void option()
@@ -166,7 +148,7 @@ public class CanvasManager : MonoBehaviour
         optionPanel.SetActive(true);
         // myCenimaEffect.SwitchToCamera(1);
     }
-    
+
     public void credit()
     {
         DeActivateAllPanel();
@@ -178,7 +160,6 @@ public class CanvasManager : MonoBehaviour
     {
         // myCenimaEffect.SwitchToCamera(3);
     }
-
     public void toggleMap(bool isMapOpen)
     {
         if (mapRectTransform != null)
@@ -189,5 +170,8 @@ public class CanvasManager : MonoBehaviour
             mapRectTransform.sizeDelta = scale;
         }
     }
+
+
+
 
 }

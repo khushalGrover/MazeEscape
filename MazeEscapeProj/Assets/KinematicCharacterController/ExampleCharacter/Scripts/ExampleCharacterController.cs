@@ -199,14 +199,11 @@ namespace KinematicCharacterController.Examples
                         // Map Input
                         if(inputs.MapDown)
                         {
-                            GameManager.instance.ToggleMap(true);
-
-
+                            GameManager.instance.HandleToggleMap(true);
                         }
                         else if(inputs.MapUp)
                         {
-                            GameManager.instance.ToggleMap(false);
-
+                            GameManager.instance.HandleToggleMap(false);
                         }
 
                         break;

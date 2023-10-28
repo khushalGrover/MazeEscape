@@ -20,7 +20,7 @@ namespace KinematicCharacterController.Examples
 
         private void Start()
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            // Cursor.lockState = CursorLockMode.Locked;
 
             // Tell camera to follow transform
             CharacterCamera.SetFollowTransform(Character.CameraFollowPoint);
@@ -32,10 +32,10 @@ namespace KinematicCharacterController.Examples
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            /*if (Input.GetMouseButtonDown(0))
             {
                 Cursor.lockState = CursorLockMode.Locked;
-            }
+            }*/
             
             HandleCharacterInput();
         }
@@ -57,9 +57,10 @@ namespace KinematicCharacterController.Examples
             float mouseLookAxisUp = Input.GetAxisRaw(MouseYInput);
             float mouseLookAxisRight = Input.GetAxisRaw(MouseXInput);
             Vector3 lookInputVector = new Vector3(mouseLookAxisRight, mouseLookAxisUp, 0f);
-       
+
             // Input for zooming the camera (disabled in WebGL because it can cause problems)
-            float scrollInput = -Input.GetAxis(MouseScrollInput);
+            //float scrollInput = -Input.GetAxis(MouseScrollInput);
+            float scrollInput = 0;
 #if UNITY_WEBGL
         scrollInput = 0f;
 #endif
@@ -68,10 +69,10 @@ namespace KinematicCharacterController.Examples
             CharacterCamera.UpdateWithInput(Time.deltaTime, scrollInput, lookInputVector);
 
             // Handle toggling zoom level
-            if (Input.GetMouseButtonDown(1))
+            /*if (Input.GetMouseButtonDown(1))
             {
                 CharacterCamera.TargetDistance = (CharacterCamera.TargetDistance == 0f) ? CharacterCamera.DefaultDistance : 0f;
-            }
+            }*/
         }
 
         private void HandleCharacterInput()
