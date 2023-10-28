@@ -25,6 +25,8 @@ namespace KinematicCharacterController.Examples
         public bool JumpDown;
         public bool CrouchDown;
         public bool CrouchUp;
+        public bool MapDown;
+        public bool MapUp;
     }
 
     public struct AICharacterInputs
@@ -192,6 +194,19 @@ namespace KinematicCharacterController.Examples
                         else if (inputs.CrouchUp)
                         {
                             _shouldBeCrouching = false;
+                        }
+
+                        // Map Input
+                        if(inputs.MapDown)
+                        {
+                            GameManager.instance.ToggleMap(true);
+
+
+                        }
+                        else if(inputs.MapUp)
+                        {
+                            GameManager.instance.ToggleMap(false);
+
                         }
 
                         break;
@@ -503,10 +518,13 @@ namespace KinematicCharacterController.Examples
 
         protected void OnLanded()
         {
+            // Debug.Log("Landed");
         }
 
         protected void OnLeaveStableGround()
         {
+            // Debug.Log("Leave stable grounded");
+
         }
 
         public void OnDiscreteCollisionDetected(Collider hitCollider)

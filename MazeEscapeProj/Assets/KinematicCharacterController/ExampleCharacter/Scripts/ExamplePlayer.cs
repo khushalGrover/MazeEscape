@@ -10,7 +10,7 @@ namespace KinematicCharacterController.Examples
     {
         public ExampleCharacterController Character;
         public ExampleCharacterCamera CharacterCamera;
-        public CameraManager cameraManager;
+        // public CameraManager cameraManager;
 
         private const string MouseXInput = "Mouse X";
         private const string MouseYInput = "Mouse Y";
@@ -85,9 +85,13 @@ namespace KinematicCharacterController.Examples
             characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
             characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.C);
             characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.C);
+            characterInputs.MapDown = Input.GetKeyDown(KeyCode.M);
+            characterInputs.MapUp = Input.GetKeyUp(KeyCode.M);
             // hudUiManag.openMajorMap(Input.GetKeyDown(KeyCode.M));
             // hudUiManag.closeMajorMap(Input.GetKeyUp(KeyCode.M));
-            if(Input.GetKeyDown(KeyCode.M))
+            
+            
+            /*if(Input.GetKeyDown(KeyCode.M))
             {
                 cameraManager.toggleMap(true);
             }
@@ -95,6 +99,7 @@ namespace KinematicCharacterController.Examples
             {
                 cameraManager.toggleMap(false);
             }
+            */
 
             // Apply inputs to character
             Character.SetInputs(ref characterInputs);

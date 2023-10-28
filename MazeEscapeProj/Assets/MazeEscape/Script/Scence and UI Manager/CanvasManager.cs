@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+// using UnityEngine.SceneManagement;
 
-public class canvasManager : MonoBehaviour
+public class CanvasManager : MonoBehaviour
 {
-    public static canvasManager instance;
+    // public static canvasManager instance;
 
     // [SerializeField] private MyCenimaEffect myCenimaEffect;
 
@@ -17,6 +18,7 @@ public class canvasManager : MonoBehaviour
     [SerializeField] private GameObject creditPanel;
     [SerializeField] private GameObject optionPanel;
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private RectTransform mapRectTransform;
     // [SerializeField] private GameObject exitConfirmPanel;
 
 
@@ -55,20 +57,27 @@ public class canvasManager : MonoBehaviour
 
     public void loadMenuScene()
     {
-        SceneManager.LoadScene(0);
-
+        // SceneManager.LoadScene(0);
+        GameManager.instance.loadScene(0);
+        
         // switch camera to give cinematic effect
         // myCenimaEffect.SwitchToCamera(0);
+
     }
 
     public void loadFirstScene()
     {
-        SceneManager.LoadScene(1);
+        // SceneManager.LoadScene(1);
+        GameManager.instance.loadScene(1);
+
     }
 
     public void loadSecondScene()
     {
-        SceneManager.LoadScene(2);
+        //SceneManager.LoadScene(2);
+        GameManager.instance.loadScene(2);
+
+
     }
 
     public void APPQUIT()
@@ -118,7 +127,7 @@ public class canvasManager : MonoBehaviour
     {
         // reload current screen and deacivate all canvas...
         // myCenimaEffect.SwitchToCamera(0);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void option()
@@ -140,6 +149,15 @@ public class canvasManager : MonoBehaviour
         // myCenimaEffect.SwitchToCamera(3);
     }
 
-
+    public void toggleMap(bool isMapOpen)
+    {
+        if (mapRectTransform != null)
+        {
+            var scale = mapRectTransform.localScale;
+            scale.x = isMapOpen ? 455 : 155;
+            scale.y = isMapOpen ? 455 : 155;
+            mapRectTransform.sizeDelta = scale;
+        }
+    }
 
 }
