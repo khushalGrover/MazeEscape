@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using KinematicCharacterController;
 using System;
+using UnityEngine.Rendering;
 
 namespace KinematicCharacterController.Examples
 {
@@ -23,10 +24,12 @@ namespace KinematicCharacterController.Examples
         public float MoveAxisRight;
         public Quaternion CameraRotation;
         public bool JumpDown;
-        public bool CrouchDown;
-        public bool CrouchUp;
+        public bool SprintDown;
+        public bool SprintUp;
         public bool MapDown;
         public bool MapUp;
+        public bool CrouchDown;
+        public bool CrouchUp;
     }
 
     public struct AICharacterInputs
@@ -48,6 +51,7 @@ namespace KinematicCharacterController.Examples
 
         [Header("Stable Movement")]
         public float MaxStableMoveSpeed = 10f;
+        public float MaxRunSpeed = 20f;
         public float StableMovementSharpness = 15f;
         public float OrientationSharpness = 10f;
         public OrientationMethod OrientationMethod = OrientationMethod.TowardsCamera;
@@ -71,6 +75,7 @@ namespace KinematicCharacterController.Examples
         public Vector3 Gravity = new Vector3(0, -30f, 0);
         public Transform MeshRoot;
         public Transform CameraFollowPoint;
+        public float SprintedCapsuleHeight = 1f;
         public float CrouchedCapsuleHeight = 1f;
 
         public CharacterState CurrentCharacterState { get; private set; }
@@ -85,6 +90,8 @@ namespace KinematicCharacterController.Examples
         private float _timeSinceJumpRequested = Mathf.Infinity;
         private float _timeSinceLastAbleToJump = 0f;
         private Vector3 _internalVelocityAdd = Vector3.zero;
+        private bool _shouldBeSprinting = false;
+        private bool _isSprinting = false;
         private bool _shouldBeCrouching = false;
         private bool _isCrouching = false;
 
@@ -179,6 +186,24 @@ namespace KinematicCharacterController.Examples
                             _jumpRequested = true;
                         }
 
+                        // Sprinting input
+                        if (inputs.SprintDown)
+                        {
+                            _shouldBeSprinting = true;
+
+                            if (!_isSprinting)
+                            {
+                                MaxStableMoveSpeed = MaxRunSpeed;
+                            }
+                        }
+                        else if (inputs.SprintUp)
+                        {
+                            _shouldBeSprinting = false;
+                            MaxStableMoveSpeed = 10f;
+
+                        }
+                        Debug.Log(MaxStableMoveSpeed);
+
                         // Crouching input
                         if (inputs.CrouchDown)
                         {
@@ -197,7 +222,7 @@ namespace KinematicCharacterController.Examples
                         }
 
                         // Map Input
-                        if(inputs.MapDown)
+                        if (inputs.MapDown)
                         {
                             GameManager.instance.HandleToggleMap(true);
                         }
@@ -320,7 +345,7 @@ namespace KinematicCharacterController.Examples
                             // Add move input
                             if (_moveInputVector.sqrMagnitude > 0f)
                             {
-                                Vector3 addedVelocity = _moveInputVector * AirAccelerationSpeed * deltaTime;
+                                Vector3 addedVelocity = _moveInputVector * AirAccelerationSpeed *  deltaTime;
 
                                 Vector3 currentVelocityOnInputsPlane = Vector3.ProjectOnPlane(currentVelocity, Motor.CharacterUp);
 

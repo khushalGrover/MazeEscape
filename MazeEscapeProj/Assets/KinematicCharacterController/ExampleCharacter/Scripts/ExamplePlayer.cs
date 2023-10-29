@@ -84,14 +84,17 @@ namespace KinematicCharacterController.Examples
             characterInputs.MoveAxisRight = Input.GetAxisRaw(HorizontalInput);
             characterInputs.CameraRotation = CharacterCamera.Transform.rotation;
             characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
-            characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.C);
-            characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.C);
-            characterInputs.MapDown = Input.GetKeyDown(KeyCode.M);
-            characterInputs.MapUp = Input.GetKeyUp(KeyCode.M);
+            characterInputs.SprintDown = Input.GetKeyDown(KeyCode.LeftShift);
+            characterInputs.SprintUp = Input.GetKeyUp(KeyCode.LeftShift);
+            characterInputs.MapDown = Input.GetKeyDown(KeyCode.CapsLock);
+            characterInputs.MapUp = Input.GetKeyUp(KeyCode.CapsLock);
+            characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.LeftControl);
+            characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.LeftControl);
+
             // hudUiManag.openMajorMap(Input.GetKeyDown(KeyCode.M));
             // hudUiManag.closeMajorMap(Input.GetKeyUp(KeyCode.M));
-            
-            
+
+
             /*if(Input.GetKeyDown(KeyCode.M))
             {
                 cameraManager.toggleMap(true);
