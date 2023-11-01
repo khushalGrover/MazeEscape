@@ -5103,6 +5103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Motor: {fileID: 218902869}
   MaxStableMoveSpeed: 10
+  MaxRunSpeed: 2
   StableMovementSharpness: 15
   OrientationSharpness: 10
   OrientationMethod: 0
@@ -5120,6 +5121,7 @@ MonoBehaviour:
   Gravity: {x: 0, y: -30, z: 0}
   MeshRoot: {fileID: 218902876}
   CameraFollowPoint: {fileID: 218902876}
+  SprintedCapsuleHeight: 1
   CrouchedCapsuleHeight: 1
 --- !u!136 &218902871
 CapsuleCollider:
@@ -20436,6 +20438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Motor: {fileID: 846437975}
   MaxStableMoveSpeed: 10
+  MaxRunSpeed: 2
   StableMovementSharpness: 15
   OrientationSharpness: 10
   OrientationMethod: 0
@@ -20453,6 +20456,7 @@ MonoBehaviour:
   Gravity: {x: 0, y: -30, z: 0}
   MeshRoot: {fileID: 846437982}
   CameraFollowPoint: {fileID: 846437982}
+  SprintedCapsuleHeight: 1
   CrouchedCapsuleHeight: 1
 --- !u!136 &846437973
 CapsuleCollider:
@@ -37079,7 +37083,7 @@ Transform:
   m_GameObject: {fileID: 1533526512}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.50000006, z: -0.50000006, w: 0.5}
-  m_LocalPosition: {x: 5, y: 49.65, z: -5}
+  m_LocalPosition: {x: 2.4999993, y: 209.57004, z: -2.4999754}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41024,7 +41028,7 @@ Transform:
   m_GameObject: {fileID: 1711360395}
   serializedVersion: 2
   m_LocalRotation: {x: -0.066830315, y: -0.46499076, z: 0.12558746, w: 0.8738107}
-  m_LocalPosition: {x: 1.3, y: 3.94, z: -8.4}
+  m_LocalPosition: {x: 1.3, y: 15.29, z: -8.4}
   m_LocalScale: {x: 1.3359, y: 13.964546, z: 11.4266205}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -52247,6 +52251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Motor: {fileID: 2140252335}
   MaxStableMoveSpeed: 10
+  MaxRunSpeed: 2
   StableMovementSharpness: 15
   OrientationSharpness: 10
   OrientationMethod: 0
@@ -52264,6 +52269,7 @@ MonoBehaviour:
   Gravity: {x: 0, y: -30, z: 0}
   MeshRoot: {fileID: 2140252326}
   CameraFollowPoint: {fileID: 2140252326}
+  SprintedCapsuleHeight: 1
   CrouchedCapsuleHeight: 1
 --- !u!136 &2140252333
 CapsuleCollider:
@@ -53404,6 +53410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Motor: {fileID: 6615662580611611646}
   MaxStableMoveSpeed: 10
+  MaxRunSpeed: 12.5
   StableMovementSharpness: 15
   OrientationSharpness: 20
   OrientationMethod: 0
@@ -53423,6 +53430,7 @@ MonoBehaviour:
   Gravity: {x: 0, y: -30, z: 0}
   MeshRoot: {fileID: 6510422302040278518}
   CameraFollowPoint: {fileID: 6505238199867825826}
+  SprintedCapsuleHeight: 1
   CrouchedCapsuleHeight: 1
 --- !u!114 &6615662580611611646
 MonoBehaviour:
@@ -53517,6 +53525,18 @@ PrefabInstance:
     - target: {fileID: 3029003055569493473, guid: 1f3fe83364ba84041aea5ebbabfdd094, type: 3}
       propertyPath: m_Name
       value: Maze Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7038066755344912493, guid: 1f3fe83364ba84041aea5ebbabfdd094, type: 3}
+      propertyPath: _mazeDepth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7038066755344912493, guid: 1f3fe83364ba84041aea5ebbabfdd094, type: 3}
+      propertyPath: _mazeWidth
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7038066755344912493, guid: 1f3fe83364ba84041aea5ebbabfdd094, type: 3}
+      propertyPath: _mazeCellSize
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

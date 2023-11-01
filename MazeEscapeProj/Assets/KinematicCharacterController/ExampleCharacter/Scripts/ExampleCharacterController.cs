@@ -202,7 +202,6 @@ namespace KinematicCharacterController.Examples
                             MaxStableMoveSpeed = 10f;
 
                         }
-                        Debug.Log(MaxStableMoveSpeed);
 
                         // Crouching input
                         if (inputs.CrouchDown)

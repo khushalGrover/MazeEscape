@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2733972087556640110, guid: 5a852b7f42a51714bb4a8866bfd68d63, type: 3}
       propertyPath: m_Name
-      value: wall-2 Variant
+      value: border cell 2 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2977387688877655421, guid: 5a852b7f42a51714bb4a8866bfd68d63, type: 3}
       propertyPath: m_IsActive
@@ -79,6 +79,18 @@ PrefabInstance:
     - target: {fileID: 5701504798456652031, guid: 5a852b7f42a51714bb4a8866bfd68d63, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128262171395843242, guid: 5a852b7f42a51714bb4a8866bfd68d63, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128262171395843242, guid: 5a852b7f42a51714bb4a8866bfd68d63, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128262171395843242, guid: 5a852b7f42a51714bb4a8866bfd68d63, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7128262171395843242, guid: 5a852b7f42a51714bb4a8866bfd68d63, type: 3}
       propertyPath: m_LocalPosition.x
