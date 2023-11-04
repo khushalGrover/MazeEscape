@@ -147,7 +147,6 @@ namespace KinematicCharacterController.Examples
                         if (!isIgnored && _obstructions[i].distance < closestHit.distance && _obstructions[i].distance > 0)
                         {
                             closestHit = _obstructions[i];
-                            Debug.Log("loggoing");
 
                         }
                     }

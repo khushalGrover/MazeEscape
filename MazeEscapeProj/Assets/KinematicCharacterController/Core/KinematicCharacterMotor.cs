@@ -590,6 +590,7 @@ namespace KinematicCharacterController
         public void SetCapsuleCollisionsActivation(bool collisionsActive)
         {
             Capsule.isTrigger = !collisionsActive;
+            Debug.Log("triggering");
         }
 
         /// <summary>
@@ -2110,6 +2111,8 @@ namespace KinematicCharacterController
             CharacterController.ProcessHitStabilityReport(hitCollider, hitNormal, hitPoint, atCharacterPosition, atCharacterRotation, ref stabilityReport);
         }
 
+
+
         private void DetectSteps(Vector3 characterPosition, Quaternion characterRotation, Vector3 hitPoint, Vector3 innerHitDirection, ref HitStabilityReport stabilityReport)
         {
             int nbStepHits = 0;
@@ -2685,5 +2688,32 @@ namespace KinematicCharacterController
 
             return nbHits;
         }
+
+
+       
+        // private void OnTriggerEnter(Collider other)
+        // {
+        //     if (other.gameObject.tag == "Interactable")
+        //     {
+        //         if (other.gameObject.GetComponent<Interactable>() != null)
+        //         {
+        //             other.gameObject.GetComponent<Interactable>().InRange();
+        //             // Debug.Log("In Range");
+        //         }
+        //     }
+        // }
+
+        // private void OnTriggerExit(Collider other)
+        // {
+        //     if (other.gameObject.tag == "Interactable")
+        //     {
+        //         if (other.gameObject.GetComponent<Interactable>() != null)
+        //         {
+        //             // other.gameObject.GetComponent<Interactable>().Interact();
+        //             other.gameObject.GetComponent<Interactable>().OutRange();
+        //             // Debug.Log("Not _ IN _ range");
+        //         }
+        //     }
+        // }
     }
 }

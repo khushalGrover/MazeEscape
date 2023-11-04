@@ -35,19 +35,19 @@ namespace KinematicCharacterController.Examples
         private void Update()
         {
 
-            //MouseBtnInputing();
+            MouseBtnInputing();
 
             
-             HandleCharacterInput();
+            HandleCharacterInput();
         }
 
 
 
         #region Taking Input for Wepon Fire
-        /*
+        
         void MouseBtnInputing() 
         {
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(0))
             {
                 // Cursor.lockState = CursorLockMode.Locked;
                 // created a ray
@@ -82,7 +82,7 @@ namespace KinematicCharacterController.Examples
         {
             if (focus != null)
                 focus = null;
-        }*/
+        }
         #endregion
 
 
@@ -139,17 +139,6 @@ namespace KinematicCharacterController.Examples
 
             // hudUiManag.openMajorMap(Input.GetKeyDown(KeyCode.M));
             // hudUiManag.closeMajorMap(Input.GetKeyUp(KeyCode.M));
-
-
-            /*if(Input.GetKeyDown(KeyCode.M))
-            {
-                cameraManager.toggleMap(true);
-            }
-            else if(Input.GetKeyUp(KeyCode.M))
-            {
-                cameraManager.toggleMap(false);
-            }
-            */
 
             // Apply inputs to character
             Character.SetInputs(ref characterInputs);

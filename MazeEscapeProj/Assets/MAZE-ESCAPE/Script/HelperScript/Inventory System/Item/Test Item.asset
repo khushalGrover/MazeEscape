@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Test Item
   m_EditorClassIdentifier: 
   name: Power Up
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 011191c2b519e3f4291330b11f88a360, type: 3}
   isDefaultItem: 0
