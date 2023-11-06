@@ -23,7 +23,10 @@ namespace KinematicCharacterController.Examples
         private void Start()
         {
             // Cursor.lockState = CursorLockMode.Locked;
-
+            if(cam == null)
+            {
+                cam = Camera.main;
+            }
             // Tell camera to follow transform
             CharacterCamera.SetFollowTransform(Character.CameraFollowPoint);
 
