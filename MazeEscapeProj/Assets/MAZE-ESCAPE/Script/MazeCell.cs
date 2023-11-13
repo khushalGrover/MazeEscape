@@ -9,7 +9,11 @@ public class MazeCell : MonoBehaviour
     [SerializeField] private GameObject _leftWall;
     [SerializeField] private GameObject _unVisitedBlock;
 
+
+
     public bool IsVisited { get; private set; }
+    public bool IsLeftWall { get; private set; }
+    public bool IsFrontWall { get; private set; }
 
     public void Visit()
     {
@@ -22,13 +26,18 @@ public class MazeCell : MonoBehaviour
     {
         // _leftWall.SetActive(false);
         Destroy(_leftWall);
+        IsLeftWall = false;
+        
     }
 
     public void ClearFrontWall ()
     {
         // _frontWall.SetActive(false);
         Destroy(_frontWall);
-
+        IsFrontWall = false;
+        
     }
+
+    
 
 }

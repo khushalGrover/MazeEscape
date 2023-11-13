@@ -24,7 +24,7 @@ public class EquipmentManager : MonoBehaviour
         inventory = Inventory.instance;
 
         int numSlots = System.Enum.GetNames(typeof(EquipmentSlot)).Length;
-        Debug.Log("number of slotes is:" + numSlots);
+        // Debug.Log("number of slotes is:" + numSlots);
         currentEquipment = new Equipment[numSlots];
     }
 

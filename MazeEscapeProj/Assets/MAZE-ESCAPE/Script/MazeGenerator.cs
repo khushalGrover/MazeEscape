@@ -9,12 +9,16 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField]
     private GameObject cellParent, borderCellParent;
 
+    [SerializeField] 
+    private GameObject enemySpawnPoint;
+
     [SerializeField]
     private MazeCell _mazeCellPrefab;
 
     [SerializeField]
     private GameObject borderCellPrefab, borderCell2Prefab;
-    
+    // private List<MazeCell> deadEnds = new List<MazeCell>();
+
     [SerializeField]
     private int _mazeCellSize;
 
@@ -62,6 +66,8 @@ public class MazeGenerator : MonoBehaviour
             }
         #endregion   
 
+
+        // Setting up the maze start point 
         GenerateMaze(null, _mazeGrid[0, 0]);
     }
 
@@ -81,17 +87,37 @@ public class MazeGenerator : MonoBehaviour
 
         // yield return new WaitForSeconds(0.05f);
 
-        MazeCell nextCell;
-
-        do
+       // Check if the current cell is a dead end
+        if (GetUnvisitedCells(currentCell).Count() == 0)
         {
-            nextCell = GetNextUnvisitedCell(currentCell);
+            Vector3 offset = new Vector3(0, 0, 0);
+            // deadEnds.Add(currentCell);
+            // Spawn enemy at the dead end
+            
 
-            if (nextCell != null)
+            if(currentCell.IsLeftWall == false)
             {
-                GenerateMaze(currentCell, nextCell);
+                // Debug.Log("left wall is false");
+                // Debug.Log(currentCell.transform.position);
+                offSet = new Vector3(2.5f, 0, -2.5f);
             }
-        } while (nextCell != null);
+            SpawnEnemy(currentCell.transform.position + offSet);
+        }
+
+
+        for (MazeCell nextCells = GetNextUnvisitedCell(currentCell); nextCells != null; nextCells = GetNextUnvisitedCell(currentCell))
+        {
+            GenerateMaze(currentCell, nextCells);
+        }
+        
+
+    }
+
+
+    private void SpawnEnemy(Vector3 position)
+    {
+        // Instantiate your enemy at the specified position
+        Instantiate(enemySpawnPoint, position, Quaternion.identity);
     }
 
     private MazeCell GetNextUnvisitedCell(MazeCell currentCell)
@@ -160,10 +186,15 @@ public class MazeGenerator : MonoBehaviour
         */
         #endregion
         
-        #region 4 direction Optimized
+        #region 4 direction Optimized by ChatGPT
         int x = (int)currentCell.transform.position.x;
         int z = (int)currentCell.transform.position.z;
-        int[,] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+        int[,] directions = { 
+            {  1 , 0 }, 
+            { -1,  0 }, 
+            {  0,  1 }, 
+            {  0, -1 } 
+        };
 
         for (int i = 0; i < 4; i++)
         {
@@ -175,9 +206,12 @@ public class MazeGenerator : MonoBehaviour
                 var adjacentCell = _mazeGrid[newX, newZ];
                 if (!adjacentCell.IsVisited)
                 {
+                    // Instantiate(enemySpawnPoint, new Vector3(newX, 0f, newZ),  Quaternion.identity);
                     yield return adjacentCell;
                 }
+                
             }
+            
         }
         #endregion
     }
@@ -196,7 +230,6 @@ public class MazeGenerator : MonoBehaviour
     /// <param name="currentCell"></param>
     private void ClearWalls(MazeCell previousCell, MazeCell currentCell)
     {
-        // Debug.Log("trying to clear wall at " + currentCell.transform.position.x + " + " + currentCell.transform.position.z);
         if (previousCell == null)
         {
             return;
@@ -220,6 +253,7 @@ public class MazeGenerator : MonoBehaviour
                 // previousCell.ClearBackWall();
                 currentCell.ClearFrontWall();
                 break;
+            
         }
     }
 
