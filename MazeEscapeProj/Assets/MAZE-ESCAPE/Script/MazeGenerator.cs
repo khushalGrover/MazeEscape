@@ -73,7 +73,17 @@ public class MazeGenerator : MonoBehaviour
         GenerateMaze(null, _mazeGrid[0, 0]);
 
         // baking navmesh
-        _surface = GetComponent<NavMeshSurface>();
+       //  _surface = GetComponent<NavMeshSurface>();
+
+        // call ManualyBakeNavMesh() to bake navmesh after 2 seconds
+        Invoke("ManualyBakeNavMesh", 2f);
+        
+
+    }
+
+
+    public void ManualyBakeNavMesh()
+    {
         _surface.BuildNavMesh();
     }
 

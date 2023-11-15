@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class testZomController : MonoBehaviour
+public class ZombieController : MonoBehaviour
 {
 
     public float fovDeg;
