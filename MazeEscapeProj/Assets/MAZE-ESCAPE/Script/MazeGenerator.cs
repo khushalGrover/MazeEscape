@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MazeGenerator : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class MazeGenerator : MonoBehaviour
 
 
     private MazeCell[,] _mazeGrid;
+    public NavMeshSurface _surface;
 
    
 
@@ -69,6 +71,10 @@ public class MazeGenerator : MonoBehaviour
 
         // Setting up the maze start point 
         GenerateMaze(null, _mazeGrid[0, 0]);
+
+        // baking navmesh
+        _surface = GetComponent<NavMeshSurface>();
+        _surface.BuildNavMesh();
     }
 
     /// <summary>
