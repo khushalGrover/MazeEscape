@@ -6,8 +6,8 @@ public class Interactable : MonoBehaviour
     private bool hasInteracted = false;
     private bool isInRange = false;
     private float timeElapsed;
-    [SerializeField] private float delayTime = 5f;
-    public float radius = 2f;
+    [SerializeField] private float delayTime = 1f;
+    public float radius = 5f;
     private Transform player;
     private Transform camera;
     private Transform interactionTransform;

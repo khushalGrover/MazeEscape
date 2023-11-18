@@ -211,8 +211,8 @@ namespace KinematicCharacterController.Examples
                             if (!_isCrouching)
                             {
                                 _isCrouching = true;
-                                Motor.SetCapsuleDimensions(0.5f, CrouchedCapsuleHeight, CrouchedCapsuleHeight * 0.5f);
-                                MeshRoot.localScale = new Vector3(1f, 0.5f, 1f);
+                                // Motor.SetCapsuleDimensions(0.5f, CrouchedCapsuleHeight, CrouchedCapsuleHeight * 0.5f);
+                                // MeshRoot.localScale = new Vector3(1f, 0.5f, 1f);
                             }
                         }
                         else if (inputs.CrouchUp)
@@ -220,15 +220,15 @@ namespace KinematicCharacterController.Examples
                             _shouldBeCrouching = false;
                         }
 
-                        // Map Input
-                        if (inputs.MapDown)
-                        {
-                            GameManager.instance.HandleToggleMap(true);
-                        }
-                        else if(inputs.MapUp)
-                        {
-                            GameManager.instance.HandleToggleMap(false);
-                        }
+                        // // Map Input
+                        // if (inputs.MapDown)
+                        // {
+                        //     GameManager.instance.HandleToggleMap(true);
+                        // }
+                        // else if(inputs.MapUp)
+                        // {
+                        //     GameManager.instance.HandleToggleMap(false);
+                        // }
 
                         break;
                     }

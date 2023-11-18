@@ -20,56 +20,43 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject optionPanel;
     [SerializeField] private GameObject exitConfirmPanel;
     [SerializeField] private GameObject gameOverPanel;
+
+    [Header("______Slider_____")]
+    [SerializeField] private Slider healthSlider;
     [SerializeField] private RectTransform mapRectTransform;
     // [SerializeField] private MyCenimaEffect myCenimaEffect;
-
+    private int currentSceneIndex;
     private void Awake()
     {
         // myCenimaEffect = gameObject.GetComponent<MyCenimaEffect>();
     }
 
+    private void Start()
+    {
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+    }
     private void LateUpdate()
     {
+        if (!Input.GetKeyUp(KeyCode.Escape)) return;
 
-        if (!Input.GetKeyUp(KeyCode.Escape))
+      
+        if (currentSceneIndex != 0)
         {
-            return;
-        }
-
-        if(SceneManager.GetActiveScene().buildIndex != 0 )
-        {
-            if (!pasuePanel.activeInHierarchy)
-            {
-                pauseGame();
-
-            }
-            else
-            {
-                resumeGame();
-            }
+            if (!pasuePanel.activeInHierarchy) pauseGame();
+            else resumeGame();
         }
         else
         {
-            if(!mainMenuHudPanel.activeInHierarchy)
-            {
-                resumeMainMenu();
-            }
-            else
-            {
-                ExitConfirmPanel();
-            }
+            if (!mainMenuHudPanel.activeInHierarchy) resumeMainMenu();
+            else ExitConfirmPanel();
         }
-        
-
     }
 
 
 
-    private void Start()
-    {
-    }
 
-    void DeActivateAllPanel()
+    public void DeActivateAllPanel()
     {
         hudPanel.SetActive(false);
         mainMenuHudPanel.SetActive(false);
@@ -116,11 +103,14 @@ public class CanvasManager : MonoBehaviour
         // activate AND deactive screen 
         DeActivateAllPanel();
         pasuePanel.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
         // myCenimaEffect.SwitchToCamera(2);
+
+        GameManager.instance.UpdateGameState(GameState.Pause);
         // pause/slow game
         // Time.timeScale = 0.05f;
+        // Cursor.lockState = CursorLockMode.None;
+        // Cursor.visible = true;
+
 
     }
 
@@ -131,27 +121,15 @@ public class CanvasManager : MonoBehaviour
     }
 
 
-    public void gameoverGame()
-    {
-
-        DeActivateAllPanel();
-
-        Time.timeScale = 0f;        //freez the game include the user inputs and animations!!
-        // myCenimaEffect.SwitchToCamera(3);
-
-    }
 
     public void resumeGame()
     {
         // Deactivate AND active Screen
         DeActivateAllPanel();
-
-        // myCenimaEffect.SwitchToCamera(0);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        // resume game
         hudPanel.SetActive(true);
-        Time.timeScale = 1;
+
+        
+        GameManager.instance.UpdateGameState(GameState.Playing);
 
     }
 
@@ -159,18 +137,25 @@ public class CanvasManager : MonoBehaviour
     {
         // Depactivate AND active Screen
         DeActivateAllPanel();
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
         mainMenuHudPanel.SetActive(true);
+        
 
     }
+    public void GameOver()
+    {
+        DeActivateAllPanel();
+        gameOverPanel.SetActive(true);
 
+        // Time.timeScale = 0f; //freez the game include the user inputs and animations!!
+        //GameManager.instance.UpdateGameState(GameState.GameOver);
+    }
     public void restartGame()
     {
         // reload current screen and deacivate all canvas...
         // myCenimaEffect.SwitchToCamera(0);
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         GameManager.instance.RestartScene();
+        GameManager.instance.UpdateGameState(GameState.Playing);
     }
 
     public void option()
@@ -201,8 +186,27 @@ public class CanvasManager : MonoBehaviour
             mapRectTransform.sizeDelta = scale;
         }
     }
+    public void updateHealthSlider(float health)
+    {
+        
+        healthSlider.value = health;
+        // update color of health slider
+        if (healthSlider.value > 5 )
+        {
+            healthSlider.fillRect.GetComponent<Image>().color = Color.green;
+        }
+        else if (healthSlider.value > 3 && healthSlider.value <= 5)
+        {
+            healthSlider.fillRect.GetComponent<Image>().color = Color.yellow;
+        }
+        else if(healthSlider.value > 0)
+        {
+            healthSlider.fillRect.GetComponent<Image>().color = Color.red;
+        }
+    }
 
 
+    
 
 
 }

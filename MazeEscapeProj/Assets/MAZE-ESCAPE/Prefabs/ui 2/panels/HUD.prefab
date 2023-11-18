@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 2911901973371737063}
   - component: {fileID: 207621898833006973}
   m_Layer: 5
-  m_Name: Image
+  m_Name: CrossHair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2128,7 +2128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3453534616407257301
 RectTransform:
   m_ObjectHideFlags: 0

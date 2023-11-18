@@ -134,6 +134,10 @@ public class MazeGenerator : MonoBehaviour
     {
         // Instantiate your enemy at the specified position
         Instantiate(enemySpawnPoint, position, Quaternion.identity);
+
+        // Setting value of postion to GameManager zombiePosition by using getter and setter 
+        GameManager.instance.zombiePosition = position;
+
     }
 
     private MazeCell GetNextUnvisitedCell(MazeCell currentCell)

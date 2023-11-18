@@ -37,11 +37,14 @@ namespace KinematicCharacterController.Examples
 
         private void Update()
         {
+            if(GameManager.instance.state == GameState.Playing)
+            {
+                MouseBtnInputing();
+                
+                HandleCharacterInput();
 
-            MouseBtnInputing();
+            }
 
-            
-            HandleCharacterInput();
         }
 
 
@@ -91,13 +94,18 @@ namespace KinematicCharacterController.Examples
 
         private void LateUpdate()
         {
-            // Handle rotating the camera along with physics movers
-            if (CharacterCamera.RotateWithPhysicsMover && Character.Motor.AttachedRigidbody != null)
+            if(GameManager.instance.state == GameState.Playing)
             {
-                CharacterCamera.PlanarDirection = Character.Motor.AttachedRigidbody.GetComponent<PhysicsMover>().RotationDeltaFromInterpolation * CharacterCamera.PlanarDirection;
-                CharacterCamera.PlanarDirection = Vector3.ProjectOnPlane(CharacterCamera.PlanarDirection, Character.Motor.CharacterUp).normalized;
+
+                // Handle rotating the camera along with physics movers
+                if (CharacterCamera.RotateWithPhysicsMover && Character.Motor.AttachedRigidbody != null)
+                {
+                    CharacterCamera.PlanarDirection = Character.Motor.AttachedRigidbody.GetComponent<PhysicsMover>().RotationDeltaFromInterpolation * CharacterCamera.PlanarDirection;
+                    CharacterCamera.PlanarDirection = Vector3.ProjectOnPlane(CharacterCamera.PlanarDirection, Character.Motor.CharacterUp).normalized;
+                }
+                HandleCameraInput();
+
             }
-            HandleCameraInput();
         }
 
         private void HandleCameraInput()
@@ -135,8 +143,8 @@ namespace KinematicCharacterController.Examples
             characterInputs.JumpDown = Input.GetKeyDown(KeyCode.Space);
             characterInputs.SprintDown = Input.GetKeyDown(KeyCode.LeftShift);
             characterInputs.SprintUp = Input.GetKeyUp(KeyCode.LeftShift);
-            characterInputs.MapDown = Input.GetKeyDown(KeyCode.CapsLock);
-            characterInputs.MapUp = Input.GetKeyUp(KeyCode.CapsLock);
+            // characterInputs.MapDown = Input.GetKeyDown(KeyCode.CapsLock);
+            // characterInputs.MapUp = Input.GetKeyUp(KeyCode.CapsLock);
             characterInputs.CrouchDown = Input.GetKeyDown(KeyCode.LeftControl);
             characterInputs.CrouchUp = Input.GetKeyUp(KeyCode.LeftControl);
 

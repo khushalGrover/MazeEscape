@@ -14,6 +14,23 @@ public class GameManager : MonoBehaviour
     // reference variables
     private Loader loader;
     private CanvasManager canvasManager;
+    private PlayerHealthManager playerHealthManager;
+    private ZombieController zombieController;
+    private MazeGenerator mazeGenerator;
+
+    // getter and setter for zombie position
+    public Vector3 zombiePosition
+    {
+        get => zombieController != null ? zombieController.transform.position : Vector3.zero;
+        set
+        {
+            if (zombieController != null)
+            {
+                zombieController.transform.position = value;
+            }
+        }
+    }
+
 
 
     private void Awake()
@@ -31,6 +48,8 @@ public class GameManager : MonoBehaviour
         // intialiize
         loader = gameObject.GetComponent<Loader>();
         canvasManager = gameObject.GetComponent <CanvasManager>();
+        playerHealthManager = gameObject.GetComponent<PlayerHealthManager>();
+        mazeGenerator = gameObject.GetComponent<MazeGenerator>();
         
         
         
@@ -45,30 +64,23 @@ public class GameManager : MonoBehaviour
 
         switch(newState)
         {
-
-            case GameState.Default:
-                Debug.Log("Default");
-                break;
-
             case GameState.MainMenu:
                 // switch camera to give cinematic effect
                 break;
 
             case GameState.Playing:
-                HandleToggleMap(false);
+                HandlePlaying();
                 break;
             
             case GameState.Pause: 
-                break;
-                
-            case GameState.MapOpen:
-                HandleToggleMap(true);
+                HandlePause();
                 break;
 
             case GameState.Victory: 
                 break; 
             
             case GameState.GameOver: 
+                HandleGameOver();
                 break;
             
             default:
@@ -79,7 +91,26 @@ public class GameManager : MonoBehaviour
         /// by calling any subscribed methods with the newState as an argument if the event is not null. 
         ///</Summary>
         OnGameStateChanged?.Invoke(newState);
-        Debug.Log("current state is " +  newState);
+    }
+
+    private void HandlePlaying()
+    {
+        // canvasManager.resumeGame();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1f;
+        // myCenimaEffect.SwitchToCamera(0);
+    }
+    private void HandlePause()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    private void HandleGameOver()
+    {
+        canvasManager.GameOver();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     #region Load Scene Manager
@@ -99,12 +130,44 @@ public class GameManager : MonoBehaviour
         loader.LoaderCallback();
     }
 
-    public void HandleToggleMap(bool mapOpen)
-    {
-        canvasManager.toggleMap(mapOpen);
-
-    }
     #endregion
+    // public void HandleToggleMap(bool mapOpen)
+    // {
+    //     canvasManager.toggleMap(mapOpen);
+
+    // }
+
+
+
+    #region Player Health Manager
+    public void HurtPlayer(int damageToGive)
+    {
+        playerHealthManager.HurtPlayer(damageToGive);
+        canvasManager.updateHealthSlider(playerHealthManager.playerCurrentHealth);
+    }
+
+    public void SetMaxHealth()
+    {
+        playerHealthManager.SetMaxHealth();
+    }
+
+    public void HealPlayer(int healAmount)
+    {
+        playerHealthManager.HealPlayer(healAmount);
+    }
+
+    public void UpdateHealthUI()
+    {
+        canvasManager.updateHealthSlider(playerHealthManager.playerCurrentHealth);
+    }
+
+    #endregion
+
+
+    #region Zombie Health Manager
+    
+    #endregion
+
 
 }
 public enum GameState
