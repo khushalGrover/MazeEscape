@@ -113,8 +113,6 @@ public class MazeGenerator : MonoBehaviour
 
             if(currentCell.IsLeftWall == false)
             {
-                // Debug.Log("left wall is false");
-                // Debug.Log(currentCell.transform.position);
                 offSet = new Vector3(2.5f, 0, -2.5f);
             }
             SpawnEnemy(currentCell.transform.position + offSet);
@@ -135,8 +133,8 @@ public class MazeGenerator : MonoBehaviour
         // Instantiate your enemy at the specified position
         Instantiate(enemySpawnPoint, position, Quaternion.identity);
 
-        // Setting value of postion to GameManager zombiePosition by using getter and setter 
-        GameManager.instance.zombiePosition = position;
+        // Setting value of postion to GameManager enemyPosition by using getter and setter 
+        GameManager.instance.enemyPosition = position;
 
     }
 

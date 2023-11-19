@@ -15,18 +15,18 @@ public class GameManager : MonoBehaviour
     private Loader loader;
     private CanvasManager canvasManager;
     private PlayerHealthManager playerHealthManager;
-    private ZombieController zombieController;
+    private EnemyController enemyController;
     private MazeGenerator mazeGenerator;
 
-    // getter and setter for zombie position
-    public Vector3 zombiePosition
+    // getter and setter for enemy position
+    public Vector3 enemyPosition
     {
-        get => zombieController != null ? zombieController.transform.position : Vector3.zero;
+        get => enemyController != null ? enemyController.transform.position : Vector3.zero;
         set
         {
-            if (zombieController != null)
+            if (enemyController != null)
             {
-                zombieController.transform.position = value;
+                enemyController.transform.position = value;
             }
         }
     }
@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
+    
     // public void HandleToggleMap(bool mapOpen)
     // {
     //     canvasManager.toggleMap(mapOpen);
@@ -164,7 +165,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
 
-    #region Zombie Health Manager
+    #region Enemy Health Manager
     
     #endregion
 

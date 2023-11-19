@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da4c0fb956ab2c6409dfaceb95a4079e, type: 3}
   m_Name: CrossBow_level_1
   m_EditorClassIdentifier: 
-  MaxStack: 0
+  MaxStack: 1
   name: CrossBow_level_1
   ItemDesc: Common
   isDefaultItem: 0
