@@ -76,7 +76,7 @@ public class MazeGenerator : MonoBehaviour
        //  _surface = GetComponent<NavMeshSurface>();
 
         // call ManualyBakeNavMesh() to bake navmesh after 2 seconds
-        Invoke("ManualyBakeNavMesh", 2f);
+        Invoke("ManualyBakeNavMesh", 0.5f);
         
 
     }

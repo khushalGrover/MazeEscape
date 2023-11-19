@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
@@ -12,11 +13,15 @@ public class EnemyController : MonoBehaviour
 
     public Enemy enemy;
     [SerializeField] private ParticleSystem bloodEffect;
-    [SerializeField] private Transform _spwanPoint;
+    [SerializeField] private Transform _spwanPoint;    
+
     private NavMeshAgent _agent;
     private GameObject _player;
     private GameObject _enemy;
     private float _attackTimer = 0f;
+    public int EnemyCurrentHealth;
+
+    [SerializeField] private Slider _zombieHealthBar;
 
 
     void Start()
@@ -39,8 +44,12 @@ public class EnemyController : MonoBehaviour
         _enemy = Instantiate(enemy.EnemyPrefab, _spwanPoint.position + offset, Quaternion.identity);  
         _enemy.transform.parent = this.transform;
         _enemy.transform.name = "Zombie"; 
+        EnemyCurrentHealth = enemy.EnemyMaxHealth;
         this.transform.localScale = enemy.EnemySize;
-        
+
+        if(_zombieHealthBar == null ) _zombieHealthBar = this.GetComponentInChildren<Slider>();
+        _zombieHealthBar.maxValue = enemy.EnemyMaxHealth;
+        _zombieHealthBar.value = EnemyCurrentHealth;
     }
 
 
@@ -107,6 +116,16 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-   
+    public void TakeDamage(int damage)
+    {
+        EnemyCurrentHealth -= damage;
+        _zombieHealthBar.value = EnemyCurrentHealth;
+        if(EnemyCurrentHealth <= 0)
+        {
+            // to do : add zombie die animation
+            Debug.Log("Zombie die" + this.transform.name);
+            Destroy(gameObject);
+        }
+    }
 
 }

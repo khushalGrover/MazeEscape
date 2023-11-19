@@ -23,6 +23,7 @@ public class CanvasManager : MonoBehaviour
 
     [Header("______Slider_____")]
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private Slider weponeSlider;
     [SerializeField] private RectTransform mapRectTransform;
     // [SerializeField] private MyCenimaEffect myCenimaEffect;
     private int currentSceneIndex;
@@ -106,11 +107,6 @@ public class CanvasManager : MonoBehaviour
         // myCenimaEffect.SwitchToCamera(2);
 
         GameManager.instance.UpdateGameState(GameState.Pause);
-        // pause/slow game
-        // Time.timeScale = 0.05f;
-        // Cursor.lockState = CursorLockMode.None;
-        // Cursor.visible = true;
-
 
     }
 
@@ -127,7 +123,6 @@ public class CanvasManager : MonoBehaviour
         // Deactivate AND active Screen
         DeActivateAllPanel();
         hudPanel.SetActive(true);
-
         
         GameManager.instance.UpdateGameState(GameState.Playing);
 
@@ -146,14 +141,11 @@ public class CanvasManager : MonoBehaviour
         DeActivateAllPanel();
         gameOverPanel.SetActive(true);
 
-        // Time.timeScale = 0f; //freez the game include the user inputs and animations!!
-        //GameManager.instance.UpdateGameState(GameState.GameOver);
+        
     }
     public void restartGame()
     {
-        // reload current screen and deacivate all canvas...
-        // myCenimaEffect.SwitchToCamera(0);
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+     
         GameManager.instance.RestartScene();
         GameManager.instance.UpdateGameState(GameState.Playing);
     }
@@ -176,16 +168,7 @@ public class CanvasManager : MonoBehaviour
     {
         // myCenimaEffect.SwitchToCamera(3);
     }
-    public void toggleMap(bool isMapOpen)
-    {
-        if (mapRectTransform != null)
-        {
-            var scale = mapRectTransform.localScale;
-            scale.x = isMapOpen ? 455 : 155;
-            scale.y = isMapOpen ? 455 : 155;
-            mapRectTransform.sizeDelta = scale;
-        }
-    }
+    
     public void updateHealthSlider(float health)
     {
         
@@ -204,6 +187,18 @@ public class CanvasManager : MonoBehaviour
             healthSlider.fillRect.GetComponent<Image>().color = Color.red;
         }
     }
+
+    public void UpdatePowerSlider(float power, float maxPower)
+    {
+        weponeSlider.maxValue = maxPower;
+        weponeSlider.value = power;
+
+    }
+
+    // public void updateZombieHealthSlider(float zombieHealth)
+    // {
+    //     zombieHealthSlider.value = zombieHealth;
+    // }
 
 
     

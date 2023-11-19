@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Zombie 2
   m_EditorClassIdentifier: 
   EnemyMaxHealth: 20
-  EnemyCurrentHealth: 20
   EnemyPrefab: {fileID: 919132149155446097, guid: 6a310d220be14054a939ec06e72f2074,
     type: 3}
   EnemySize: {x: 3, y: 3, z: 3}

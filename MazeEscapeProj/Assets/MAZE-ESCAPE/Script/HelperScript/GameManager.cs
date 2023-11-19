@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
     }
     private void HandlePause()
     {
+        Time.timeScale = 0.3f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -160,6 +161,11 @@ public class GameManager : MonoBehaviour
     public void UpdateHealthUI()
     {
         canvasManager.updateHealthSlider(playerHealthManager.playerCurrentHealth);
+    }
+
+    public void UpdatePowerSlider(float power , float maxPower)
+    {
+        canvasManager.UpdatePowerSlider(power, maxPower);
     }
 
     #endregion

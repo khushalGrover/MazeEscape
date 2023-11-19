@@ -7,7 +7,7 @@ using UnityEngine;
 public class Enemy : ScriptableObject
 {
     public int EnemyMaxHealth;
-    public int EnemyCurrentHealth;
+    // public int EnemyCurrentHealth;
     public GameObject EnemyPrefab;
     public Vector3 EnemySize = new Vector3(1,1,1);
     public string name = "New Enemy";

@@ -53,7 +53,7 @@ namespace KinematicCharacterController.Examples
         
         void MouseBtnInputing() 
         {
-            if (Input.GetMouseButtonDown(0))
+            /*if (Input.GetMouseButtonDown(0))
             {
                 // Cursor.lockState = CursorLockMode.Locked;
                 // created a ray
@@ -75,7 +75,8 @@ namespace KinematicCharacterController.Examples
             if (Input.GetMouseButtonDown(1))
             {
                 RemoveFocus();
-            }
+            }*/
+            
             
         }
 
