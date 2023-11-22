@@ -49,7 +49,7 @@ public class MazeGenerator : MonoBehaviour
             {
                 for (int z = 0; z < _mazeDepth; z+=_mazeCellSize)
                 {
-                    _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, _mazeCellSize/2, z)  , Quaternion.identity);
+                    _mazeGrid[x, z] = Instantiate(_mazeCellPrefab, new Vector3(x, offSet.y, z)  , Quaternion.identity);
                     _mazeGrid[x,z].transform.parent = cellParent.transform; // change parent to clean Heriachy
                 }
             }
@@ -57,13 +57,13 @@ public class MazeGenerator : MonoBehaviour
             // both border wall instantiate
             for(int r=_mazeCellSize; r<_mazeWidth; r+=_mazeCellSize)
             {
-                var tmpVar1 = Instantiate(borderCellPrefab, new Vector3(r, _mazeCellSize/2, -_mazeCellSize)  , Quaternion.Euler(0,0,0));
+                var tmpVar1 = Instantiate(borderCellPrefab, new Vector3(r, offSet.y, -_mazeCellSize)  , Quaternion.Euler(0,0,0));
                 tmpVar1.transform.parent = borderCellParent.transform; // change parent to clean Heriachy
             } 
             for(int c=0; c<_mazeDepth - _mazeCellSize; c+=_mazeCellSize)
             {
                 
-                var tmpVar2 = Instantiate(borderCell2Prefab, new Vector3(_mazeWidth, _mazeCellSize/2, c)  , Quaternion.Euler(0,0,0));
+                var tmpVar2 = Instantiate(borderCell2Prefab, new Vector3(_mazeWidth, offSet.y, c)  , Quaternion.Euler(0,0,0));
                 tmpVar2.transform.parent = borderCellParent.transform; // change parent to clean Heriachy
             }
         #endregion   
@@ -75,7 +75,7 @@ public class MazeGenerator : MonoBehaviour
         // baking navmesh
        //  _surface = GetComponent<NavMeshSurface>();
 
-        // call ManualyBakeNavMesh() to bake navmesh after 2 seconds
+        // call ManualyBakeNavMesh() to bake navmesh after 0.5 seconds
         Invoke("ManualyBakeNavMesh", 0.5f);
         
 
@@ -111,10 +111,10 @@ public class MazeGenerator : MonoBehaviour
             // Spawn enemy at the dead end
             
 
-            if(currentCell.IsLeftWall == false)
-            {
-                offSet = new Vector3(2.5f, 0, -2.5f);
-            }
+            // if(currentCell.IsLeftWall == false)
+            // {
+            //     offSet = new Vector3(_mazeCellSize * .5f, 0,_mazeCellSize * .5f);
+            // }
             SpawnEnemy(currentCell.transform.position + offSet);
         }
 

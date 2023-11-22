@@ -127,7 +127,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.04, y: 0.04, z: 0.06098105}
   m_Center: {x: -0.00084416196, y: 0, z: 0.25}
@@ -170,9 +170,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940bbb1e5a6951448b42120d9bbc2dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
-  _lifeTime: 2
+  _speed: 1.5
+  _lifeTime: 10
   _damage: 2
   torque: 5
   rigidbody: {fileID: 2156527278097308218}
-  enemyTag: 
+  triggerCollider: {fileID: 1973226195748860693}
+  enemyTag: Enemy

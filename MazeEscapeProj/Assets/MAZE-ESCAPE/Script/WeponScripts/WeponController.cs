@@ -35,13 +35,19 @@ public class WeponController : MonoBehaviour
 
     void Update ()
     {
+        if(GameManager.instance.state != GameState.Playing)
+        {
+            return;
+        }
         mouseY -= Input.GetAxis("Mouse Y") * rotateSpeed;
         mouseY = Mathf.Clamp(mouseY, minRotation, maxRotation);
         crossBowWepon.transform.localRotation = Quaternion.Euler(mouseY, crossBowWepon.transform.localEulerAngles.y, crossBowWepon.transform.localEulerAngles.z);
 
+        GameManager.instance.UpdatePowerSlider(firePower, maxFirePower);
         if(Input.GetMouseButtonDown(0))
         {
             isFiring = true;
+
         }
 
         if(isFiring && firePower < maxFirePower)
@@ -61,11 +67,6 @@ public class WeponController : MonoBehaviour
             crossBowWepon.Reload();
         }
 
-        if(isFiring)
-        {
-            // updating power slider UI
-            GameManager.instance.UpdatePowerSlider(firePower, maxFirePower);
-        }
         
 
     }

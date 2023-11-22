@@ -5388,7 +5388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0e9c4ed60489434c964eb326afa929f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 11400000, guid: d966f0dfee581f949bd2bf07983b8365, type: 2}
+  enemy: {fileID: 11400000, guid: 084090bc944caa145ba0ad09bba4306a, type: 2}
   bloodEffect: {fileID: 1949331016531893820}
   _spwanPoint: {fileID: 0}
   EnemyCurrentHealth: 0

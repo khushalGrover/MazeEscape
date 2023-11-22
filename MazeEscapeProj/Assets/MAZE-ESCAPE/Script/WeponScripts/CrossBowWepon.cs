@@ -30,8 +30,9 @@ public class CrossBowWepon : MonoBehaviour
     private IEnumerator ReloadAfterTime()
     {
         yield return new WaitForSeconds(reloadTime);
+        
         currentArrow = Instantiate(arrowPrefab, arrowSpawnPoint.transform);
-        // currentArrow.transform.parent = arrowSpawnPoint.transform;
+        currentArrow.transform.parent = arrowSpawnPoint.transform;
         currentArrow.transform.localPosition = Vector3.zero;
         currentArrow.SetEnemy(enemyTag);
         isReloading = false;
@@ -39,16 +40,19 @@ public class CrossBowWepon : MonoBehaviour
 
     public void Fire(float firePower)
     {
-        if(isReloading || currentArrow == null /*|| GameManager.instance.state != GameState.Playing*/) return;
+        if(isReloading || currentArrow == null && GameManager.instance.state != GameState.Playing) return;
+
         var force = arrowSpawnPoint.TransformDirection(Vector3.forward) * firePower;
         currentArrow.Fly(force);
+        currentArrow.ToggleCollider(force != Vector3.zero);
+        // currentArrow.DidShoot(true);
         currentArrow = null;
         Reload();
     }
 
     public bool IsReady()
     {
-        return (!isReloading && currentArrow == null /*&& GameManager.instance.state == GameState.Playing*/);
+        return (!isReloading && currentArrow == null && GameManager.instance.state == GameState.Playing);
 
     }
 

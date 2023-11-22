@@ -12,16 +12,25 @@ public class Arrow : MonoBehaviour
     [SerializeField] private int _damage = 2;
     [SerializeField] private float torque = 5f;
     [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private Collider triggerCollider;
     [SerializeField] private string enemyTag = "Enemy";
     private bool didHit = false;
+    private bool didShoot = false;
 
     public void SetEnemy(string enmeyTag)
     {
         this.enemyTag = enemyTag;
     }
 
+    public void ToggleCollider(bool value)
+    {
+        triggerCollider.enabled = value;
+    }
+
     public void Fly(Vector3 force)
     {
+        Debug.Log("Arrow Fly");
+        triggerCollider.enabled = true;
         rigidbody.isKinematic = false;
         rigidbody.AddForce(force * _speed, ForceMode.Impulse);
         rigidbody.AddTorque(transform.forward * torque, ForceMode.Impulse);
@@ -32,25 +41,25 @@ public class Arrow : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         if(didHit) return;
+
+        Debug.Log("Trigger ENTER");
         didHit = true;
 
         if (collider.gameObject.tag == "Enemy")
         {
             collider.gameObject.GetComponent<EnemyController>().TakeDamage(_damage);
-            // Debug.Log("enemy taking damge "+_damage +"  !!!!!!! " + collider.gameObject.name + " , with tag " + collider.gameObject.tag);
-        }
-        else
-        {
-            // Instantiate(_hitEffect, transform.position, Quaternion.identity);
-            // Debug.Log("Arrow hit " + collider.gameObject.name);
+            Destroy(gameObject, _lifeTime );
+            transform.SetParent(collider.transform);
+            
+           
         }
 
         rigidbody.isKinematic = true;
         rigidbody.velocity = Vector3.zero;
         rigidbody.angularVelocity = Vector3.zero;
-        Destroy(gameObject, _lifeTime);
-        // transform.SetParent(collider.transform);
-        // Debug.Log("Arrow hit " + collider.gameObject.name + " , with tag " + collider.gameObject.tag);
+        Destroy(gameObject, _lifeTime );
+        
+
 
         
     }
