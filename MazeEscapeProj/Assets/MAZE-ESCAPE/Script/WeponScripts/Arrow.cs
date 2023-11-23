@@ -42,13 +42,13 @@ public class Arrow : MonoBehaviour
     {
         if(didHit) return;
 
-        Debug.Log("Trigger ENTER");
+        // Debug.Log("Trigger ENTER");
         didHit = true;
 
         if (collider.gameObject.tag == "Enemy")
         {
             collider.gameObject.GetComponent<EnemyController>().TakeDamage(_damage);
-            Destroy(gameObject, _lifeTime );
+            // Destroy(gameObject, _lifeTime );
             transform.SetParent(collider.transform);
             
            
@@ -57,7 +57,7 @@ public class Arrow : MonoBehaviour
         rigidbody.isKinematic = true;
         rigidbody.velocity = Vector3.zero;
         rigidbody.angularVelocity = Vector3.zero;
-        Destroy(gameObject, _lifeTime );
+        // Destroy(gameObject, _lifeTime );
         
 
 

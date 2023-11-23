@@ -71,7 +71,6 @@ public class Interactable : MonoBehaviour
              
             if(Input.GetKeyDown(KeyCode.F))
             {
-                Debug.Log("Interacting with " + transform.name);
                 Interact();
             }
         }
