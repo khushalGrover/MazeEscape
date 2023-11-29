@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1225f54127113b4382daf0d9921f9ab, type: 3}
-  m_Name: Zombie
+  m_Name: Zombie 0.B
   m_EditorClassIdentifier: 
   EnemyMaxHealth: 2
   EnemyPrefab: {fileID: 919132149155446097, guid: 6a310d220be14054a939ec06e72f2074,
     type: 3}
   EnemySize: {x: 1, y: 1, z: 1}
   name: Orc Small
-  fovDeg: 180
-  viewRadius: 5
+  fovDeg: 160
+  viewRadius: 30
   attackRange: 1.5
   attackDelay: 1
   attackDamage: 1

@@ -121,6 +121,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void LoadNextLevel()
+    {
+        loader.LoadNextLevel();
+    }
+
     public void RestartScene()
     {
         loader.RestartScene();

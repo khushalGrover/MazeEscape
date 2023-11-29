@@ -17,7 +17,7 @@ public class MazeGenerator : MonoBehaviour
     private MazeCell _mazeCellPrefab;
 
     [SerializeField]
-    private GameObject borderCellPrefab, borderCell2Prefab;
+    private GameObject borderCellPrefab, borderCell2Prefab, finishCellPrefab;
     // private List<MazeCell> deadEnds = new List<MazeCell>();
 
     [SerializeField]
@@ -60,11 +60,20 @@ public class MazeGenerator : MonoBehaviour
                 var tmpVar1 = Instantiate(borderCellPrefab, new Vector3(r, offSet.y, -_mazeCellSize)  , Quaternion.Euler(0,0,0));
                 tmpVar1.transform.parent = borderCellParent.transform; // change parent to clean Heriachy
             } 
-            for(int c=0; c<_mazeDepth - _mazeCellSize; c+=_mazeCellSize)
+            for(int c=0; c<_mazeDepth ; c+=_mazeCellSize)
             {
+                if(c == _mazeDepth - _mazeCellSize)
+                {
+                    var tmpVar3 = Instantiate(finishCellPrefab, new Vector3(_mazeDepth - 10, offSet.y +1, c +5)  , Quaternion.Euler(0,0,0));
+                    // tmpVar3.transform.parent = borderCellParent.transform; // change parent to clean Heriachy
+                    continue;
+                }
+                else
+                {
+                    var tmpVar2 = Instantiate(borderCell2Prefab, new Vector3(_mazeDepth, offSet.y, c)  , Quaternion.Euler(0,0,0));
+                    tmpVar2.transform.parent = borderCellParent.transform; // change parent to clean Heriachy
+                }
                 
-                var tmpVar2 = Instantiate(borderCell2Prefab, new Vector3(_mazeWidth, offSet.y, c)  , Quaternion.Euler(0,0,0));
-                tmpVar2.transform.parent = borderCellParent.transform; // change parent to clean Heriachy
             }
         #endregion   
 
@@ -100,21 +109,10 @@ public class MazeGenerator : MonoBehaviour
     {
         currentCell.Visit();
         ClearWalls(previousCell, currentCell);
-
-        // yield return new WaitForSeconds(0.05f);
-
-       // Check if the current cell is a dead end
         if (GetUnvisitedCells(currentCell).Count() == 0)
         {
             Vector3 offset = new Vector3(0, 0, 0);
-            // deadEnds.Add(currentCell);
-            // Spawn enemy at the dead end
-            
-
-            // if(currentCell.IsLeftWall == false)
-            // {
-            //     offSet = new Vector3(_mazeCellSize * .5f, 0,_mazeCellSize * .5f);
-            // }
+           
             SpawnEnemy(currentCell.transform.position + offSet);
         }
 
@@ -123,10 +121,7 @@ public class MazeGenerator : MonoBehaviour
         {
             GenerateMaze(currentCell, nextCells);
         }
-        
-
     }
-
 
     private void SpawnEnemy(Vector3 position)
     {

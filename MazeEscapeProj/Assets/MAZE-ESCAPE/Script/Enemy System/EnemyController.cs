@@ -21,6 +21,8 @@ public class EnemyController : MonoBehaviour
     private float _attackTimer = 0f;
     // public Animator _animator;
     public int EnemyCurrentHealth;
+    public bool isAlive = true;
+
 
     [SerializeField] private Slider _zombieHealthBar;
 
@@ -85,7 +87,7 @@ public class EnemyController : MonoBehaviour
             return;
         }
         
-        if(Mathf.Abs(Vector3.Angle(transform.forward, dir)) < enemy.fovDeg)
+        if(Mathf.Abs(Vector3.Angle(transform.forward, dir)) < enemy.fovDeg && isAlive)
         {
             // _player in range of zombie's view, pursue the _player
             _agent.SetDestination(_player.transform.position);
@@ -137,6 +139,8 @@ public class EnemyController : MonoBehaviour
         {
             // to do : add zombie die animation
             // Debug.Log("Zombie die" + this.transform.name);
+            isAlive = false;
+            StopMovement();
             _enemy.GetComponent<Animator>().SetTrigger("Die"); // Trigger die animation
             Destroy(gameObject, 2f);
         }

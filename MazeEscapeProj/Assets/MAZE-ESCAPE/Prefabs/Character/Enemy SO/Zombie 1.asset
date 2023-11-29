@@ -17,7 +17,7 @@ MonoBehaviour:
     type: 3}
   EnemySize: {x: 2, y: 2, z: 2}
   name: Orc big
-  fovDeg: 90
+  fovDeg: 180
   viewRadius: 10
   attackRange: 3
   attackDelay: 2

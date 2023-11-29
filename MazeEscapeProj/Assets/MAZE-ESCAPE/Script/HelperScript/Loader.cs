@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class Loader : MonoBehaviour
 {
     public int sceneIndex;
+    public int CurrentLevelIndex;
+
 
     private static Action onLoaderCallback;
     public enum SceneName
@@ -17,6 +19,7 @@ public class Loader : MonoBehaviour
 
     private void Awake()
     {
+
         if(SceneManager.GetActiveScene().buildIndex == 0)
         {
             Cursor.lockState = CursorLockMode.None;
@@ -27,6 +30,7 @@ public class Loader : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+
     }
 
 
@@ -52,6 +56,7 @@ public class Loader : MonoBehaviour
   
     public void RestartScene()
     {
+
         // Set the loader callback action to load the target scene
         /*onLoaderCallback = () => {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -63,6 +68,17 @@ public class Loader : MonoBehaviour
         // LoadLoading();
     }
 
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        // // Set the loader callback action to load the target scene
+        // onLoaderCallback = () => {
+        //     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        // };
+
+        // // Load the Loading Scene
+        // LoadLoading();
+    }
 
     public void LoaderCallback()
     {
