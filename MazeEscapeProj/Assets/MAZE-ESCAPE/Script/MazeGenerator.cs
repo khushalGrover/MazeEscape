@@ -64,7 +64,7 @@ public class MazeGenerator : MonoBehaviour
             {
                 if(c == _mazeDepth - _mazeCellSize)
                 {
-                    var tmpVar3 = Instantiate(finishCellPrefab, new Vector3(_mazeDepth - 10, offSet.y +1, c +5)  , Quaternion.Euler(0,0,0));
+                    var tmpVar3 = Instantiate(finishCellPrefab, new Vector3(_mazeDepth - _mazeCellSize, offSet.y +1, c +5)  , Quaternion.Euler(0,0,0));
                     // tmpVar3.transform.parent = borderCellParent.transform; // change parent to clean Heriachy
                     continue;
                 }
