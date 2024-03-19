@@ -33,6 +33,7 @@ namespace KinematicCharacterController.Examples
         public bool RotateWithPhysicsMover = false;
 
         [Header("Obstruction")]
+        public Material TransparentMaterial;
         public float ObstructionCheckRadius = 0.2f;
         public LayerMask ObstructionLayers = -1;
         public float ObstructionSharpness = 10000f;
@@ -154,8 +155,14 @@ namespace KinematicCharacterController.Examples
                     // If obstructions detecter
                     if (closestHit.distance < Mathf.Infinity)
                     {
-                        _distanceIsObstructed = true;
-                        _currentDistance = Mathf.Lerp(_currentDistance, closestHit.distance, 1 - Mathf.Exp(-ObstructionSharpness * deltaTime));
+                        // Material to transparent if closehit object name is not equal to null
+                        if (closestHit.collider.gameObject.name != null)
+                        {
+                            print(closestHit.collider.gameObject.name);
+                            closestHit.collider.gameObject.GetComponent<Renderer>().material = TransparentMaterial;
+                        }
+                        // _distanceIsObstructed = true;
+                        // _currentDistance = Mathf.Lerp(_currentDistance, closestHit.distance, 1 - Mathf.Exp(-ObstructionSharpness * deltaTime));
                     }
                     // If no obstruction
                     else
