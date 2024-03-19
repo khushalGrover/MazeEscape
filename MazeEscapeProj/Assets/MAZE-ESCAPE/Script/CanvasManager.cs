@@ -73,7 +73,7 @@ public class CanvasManager : MonoBehaviour
     {
         // SceneManager.LoadScene(0);
         GameManager.instance.loadScene(0);
-
+        Time.timeScale = 1f;
         // switch camera to give cinematic effect
         // myCenimaEffect.SwitchToCamera(0);
     }

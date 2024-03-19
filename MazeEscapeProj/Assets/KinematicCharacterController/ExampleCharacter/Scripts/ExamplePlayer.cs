@@ -23,10 +23,10 @@ namespace KinematicCharacterController.Examples
         private void Start()
         {
             // Cursor.lockState = CursorLockMode.Locked;
-            if(cam == null)
-            {
-                cam = Camera.main;
-            }
+            // if(cam == null)
+            // {
+            //     cam = Camera.main;
+            // }
             // Tell camera to follow transform
             CharacterCamera.SetFollowTransform(Character.CameraFollowPoint);
 
@@ -37,23 +37,24 @@ namespace KinematicCharacterController.Examples
 
         private void Update()
         {
-            if(GameManager.instance.state == GameState.Playing)
-            {
-                MouseBtnInputing();
+            // if(GameManager.instance.state == GameState.Playing)
+            // {
+            //     // MouseBtnInputing();
                 
+
+            // }
+
                 HandleCharacterInput();
-
-            }
-
         }
 
 
 
+            /*
         #region Taking Input for Wepon Fire
         
         void MouseBtnInputing() 
         {
-            /*if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 // Cursor.lockState = CursorLockMode.Locked;
                 // created a ray
@@ -75,7 +76,7 @@ namespace KinematicCharacterController.Examples
             if (Input.GetMouseButtonDown(1))
             {
                 RemoveFocus();
-            }*/
+            }
             
             
         }
@@ -92,10 +93,12 @@ namespace KinematicCharacterController.Examples
         }
         #endregion
 
+            */
 
         private void LateUpdate()
         {
-            if(GameManager.instance.state == GameState.Playing)
+            // if(GameManager.instance.state == GameState.Playing)
+            if(true)
             {
 
                 // Handle rotating the camera along with physics movers
